@@ -2,7 +2,7 @@
 #define MATRIZ_H_
 
 //Tipo matriz (tipo opaco)
-//Estrutura interna do tipo deve ser definida na implementaÁ„o do TAD
+//Estrutura interna do tipo deve ser definida na implementa√ß√£o do TAD
 typedef struct matriz Matriz;
 
 /*Inicializa uma matriz de nlinhas e ncolunas
@@ -16,7 +16,7 @@ Matriz* inicializaMatriz (int nlinhas, int ncolunas);
 /*Modifica o elemento [linha][coluna] da matriz mat
 * inputs: a matriz, a linha, a coluna, e o novo elemento
 * output: nenhum
-* pre-condicao: matriz mat existe, linha e coluna s„o v·lidos na matriz
+* pre-condicao: matriz mat existe, linha e coluna s√£o v√°lidos na matriz
 * pos-condicao: elemento [linha][coluna] da matriz modificado
 */
 void modificaElemento (Matriz* mat, int linha, int coluna, int elem);
@@ -24,24 +24,24 @@ void modificaElemento (Matriz* mat, int linha, int coluna, int elem);
 /*Retorna o elemento mat[linha][coluna]
 * inputs: a matriz, a linha e a coluna
 * output: elemento mat[linha][coluna]
-* pre-condicao: matriz mat existe, linha e coluna s„o v·lidos na matriz
-* pos-condicao: mat n„o È modificada
+* pre-condicao: matriz mat existe, linha e coluna s√£o v√°lidos na matriz
+* pos-condicao: mat n√£o √© modificada
 */
 int recuperaElemento(Matriz* mat, int linha, int coluna);
 
-/*Retorna o n˙mero de colunas da matriz mat
+/*Retorna o n√∫mero de colunas da matriz mat
 * inputs: a matriz
-* output: o n˙mero de colunas da matriz
+* output: o n√∫mero de colunas da matriz
 * pre-condicao: matriz mat existe
-* pos-condicao: mat n„o È modificada
+* pos-condicao: mat n√£o √© modificada
 */
 int recuperaNColunas (Matriz* mat);
 
-/*Retorna o n˙mero de linhas da matriz mat
+/*Retorna o n√∫mero de linhas da matriz mat
 * inputs: a matriz
-* output: o n˙mero de linhas da matriz
+* output: o n√∫mero de linhas da matriz
 * pre-condicao: matriz mat existe
-* pos-condicao: mat n„o È modificada
+* pos-condicao: mat n√£o √© modificada
 */
 int recuperaNLinhas (Matriz* mat);
 
@@ -49,16 +49,16 @@ int recuperaNLinhas (Matriz* mat);
 * inputs: a matriz
 * output: a matriz transposta
 * pre-condicao: matriz mat existe
-* pos-condicao: mat n„o È modificada e matriz transposta existe
+* pos-condicao: mat n√£o √© modificada e matriz transposta existe
 */
 Matriz* transposta (Matriz* mat);
 
 /*Retorna a matriz multiplicacao entre mat1 e mat2
 * inputs: as matrizes mat1 e mat2
-* output: a matriz multiplicaÁ„o
+* output: a matriz multiplica√ß√£o
 * pre-condicao: matrizes mat1 e mat2 existem, e o numero de colunas de mat1 
 * correponde ao numero de linhas de mat2 
-* pos-condicao: mat1 e mat2 n„o s„o modificadas e a matriz multiplicacao existe
+* pos-condicao: mat1 e mat2 n√£o s√£o modificadas e a matriz multiplicacao existe
 */
 Matriz* multiplicacao (Matriz* mat1, Matriz* mat2);
 
@@ -71,22 +71,22 @@ Matriz* multiplicacao (Matriz* mat1, Matriz* mat2);
 void imprimeMatriz(Matriz* mat);
 
 
-/*Libera memÛria alocada para a matriz
+/*Libera mem√≥ria alocada para a matriz
 * inputs: matriz mat
 * output: nenhum
 * pre-condicao: matriz mat existe  
-* pos-condicao: toda a memÛria alocada para matriz foi liberada
+* pos-condicao: toda a mem√≥ria alocada para matriz foi liberada
 */
 void destroiMatriz(Matriz* mat);
 
 /*  BONUS
  *
- * Rotaciona os valores da matriz NxN em 90∞ (como se fosse uma imagem)
- * A rotaÁ„o deve ocorrer localmente, isto È, sem uso de matrizes auxiliares
+ * Rotaciona os valores da matriz NxN em 90¬∫ (como se fosse uma imagem)
+ * A rota√ß√£o deve ocorrer localmente, isto √©, sem uso de matrizes auxiliares
 * inputs: a matriz
 * output: nenhum
-* pre-condicao: matriz mat existe, linha e coluna s„o v·lidos e iguais
-* pos-condicao: mat È rotacionada 90∫
+* pre-condicao: matriz mat existe, linha e coluna s√£o v√°lidos e iguais
+* pos-condicao: mat e rotacionada 90¬∫
 */
 void giraMatriz(Matriz* mat);
 
