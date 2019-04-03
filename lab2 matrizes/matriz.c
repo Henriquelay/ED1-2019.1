@@ -14,8 +14,19 @@ struct matriz{
 * pos-condicao: matriz de retorno existe e contem nlinhas e ncolunas  
 */
 Matriz* inicializaMatriz (int nlinhas, int ncolunas){
+    Matriz *mat = (Matriz*) malloc(sizeof(Matriz));
+    mat->nLinhas = nlinhas;
+    mat->nColunas = ncolunas;
+    mat->matriz = (int**) malloc(sizeof(int*) * mat->nLinhas);
+    for(int i = 0; i < mat->nColunas; i++)
+        mat->matriz[i] = (int*) malloc(sizeof(int) * mat->nColunas);
 
-    return NULL;
+    if(mat->matriz[0][0] == NULL){
+        puts("Deu algo de errado ao alocar a matriz.");
+        EXIT_FAILURE;
+    }    
+
+    return mat;
 }
 
 /*Modifica o elemento [linha][coluna] da matriz mat

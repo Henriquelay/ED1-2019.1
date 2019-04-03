@@ -15,6 +15,9 @@ int main()
 	Matriz* mat;
 	//chamando a função do TAD Matriz que inicializa a matriz 
 	mat = inicializaMatriz(NLINHAS, NCOLUNAS);
+
+/*  //eu q comentei
+
 	int i, j;
 	//preenchendo a matriz com valores para teste
 	for (i=0;i<NLINHAS;i++)
@@ -40,4 +43,6 @@ int main()
         destroiMatriz(mat);
         destroiMatriz(trp);
 	destroiMatriz(mlt);
+
+*/
 }
