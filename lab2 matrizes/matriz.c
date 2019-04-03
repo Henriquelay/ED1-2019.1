@@ -7,6 +7,37 @@ struct matriz{
     int nLinhas, nColunas, **matriz;
 };
 
+
+/*Verifica e retorna se Matriz está definida e válida
+* inputs: ponteiro para Matriz
+* output: 1 quando está definida e 0 quando não está
+* pre-condicao: -
+* pos-condicao: -
+*/
+int estaDefinida(Matriz *mat){
+    if(mat != NULL){
+        if(mat->matriz != NULL){
+            if(mat->matriz[0] != NULL){
+                    return 1;
+            } else printf("Por algum motivo, nao encontrei \"matriz[0]\".\n");
+        } else printf("Por algum motivo, nao encontrei \"matriz\".");
+    } else printf("Por algum motivo, nao encontrei \"mat\".");
+
+    return 0;
+}
+
+/*Troca 2 variáveis inteiras de lugar
+* inputs: variaveis a serem trocadas
+* output: as variáveis trocadas
+* pre-condicao: -
+* pos-condicao: -
+*/
+void swap(int *a, int *b){
+    int holder = *a;
+    *a = *b;
+    *b = holder;
+}
+
 /*Inicializa uma matriz de nlinhas e ncolunas
 * inputs: nlinhas (no de linhas) e ncolunas (no de colunas)
 * output: ponteiro para a matriz inicializada
@@ -32,6 +63,8 @@ Matriz* inicializaMatriz (int nlinhas, int ncolunas){
 * pos-condicao: elemento [linha][coluna] da matriz modificado
 */
 void modificaElemento (Matriz* mat, int linha, int coluna, int elem){
+    if(estaDefinida(mat))
+        if(coluna <= mat->nColunas && linha <= mat->nLinhas) mat->matriz[linha][coluna] = elem;
 
 }
 
@@ -42,8 +75,10 @@ void modificaElemento (Matriz* mat, int linha, int coluna, int elem){
 * pos-condicao: mat não é modificada
 */
 int recuperaElemento(Matriz* mat, int linha, int coluna){
-
-    return 0;
+    if(estaDefinida(mat)) return mat->matriz[linha][coluna];
+    else puts("DEU MERDA");
+    EXIT_FAILURE;
+    return 1;
 }
 
 /*Retorna o número de colunas da matriz mat
@@ -53,8 +88,10 @@ int recuperaElemento(Matriz* mat, int linha, int coluna){
 * pos-condicao: mat não é modificada
 */
 int recuperaNColunas (Matriz* mat){
-
-    return 0;
+    if(estaDefinida(mat)) return mat->nColunas;
+    else puts("DEU MERDA");
+    EXIT_FAILURE;
+    return 1;
 }
 
 /*Retorna o número de linhas da matriz mat
@@ -64,8 +101,10 @@ int recuperaNColunas (Matriz* mat){
 * pos-condicao: mat não é modificada
 */
 int recuperaNLinhas (Matriz* mat){
-
-    return 0;
+    if(estaDefinida(mat)) return mat->nLinhas;
+    else puts("DEU MERDA");
+    EXIT_FAILURE;
+    return 1;
 }
 
 /*Retorna a matriz transposta de mat
@@ -75,7 +114,14 @@ int recuperaNLinhas (Matriz* mat){
 * pos-condicao: mat não é modificada e matriz transposta existe
 */
 Matriz* transposta (Matriz* mat){
-
+    if(estaDefinida(mat)){
+        for(int i = 0; i < mat->nLinhas; i++){
+            for(int j = i; j < mat->nColunas; j++){
+                swap(&mat->matriz[i][j], &mat->matriz[j][i]);
+            }
+        }
+    }else puts("DEU MERDA");
+    EXIT_FAILURE;
     return NULL;
 }
 
@@ -98,7 +144,13 @@ Matriz* multiplicacao (Matriz* mat1, Matriz* mat2){
 * pos-condicao: nenhuma
 */
 void imprimeMatriz(Matriz* mat){
+    if(estaDefinida(mat)) 
+        for(int i = 0; i < mat->nColunas; i++)
+            for(int j = 0; j < mat->nLinhas; j++)  
+                printf("%d", mat->matriz[i][j]);
 
+    else puts("DEU MERDA");
+    EXIT_FAILURE;
 }
 
 
@@ -109,7 +161,14 @@ void imprimeMatriz(Matriz* mat){
 * pos-condicao: toda a memória alocada para matriz foi liberada
 */
 void destroiMatriz(Matriz* mat){
-
+    if(estaDefinida(mat)){
+        for(int i = 0; i < mat->nLinhas; i++)
+            free(mat->matriz[i]);
+        free(mat->matriz);
+        free(mat);
+    }
+    else puts("DEU MERDA");
+    EXIT_FAILURE;
 }
 
 /*  BONUS

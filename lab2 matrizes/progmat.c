@@ -16,7 +16,6 @@ int main()
 	//chamando a função do TAD Matriz que inicializa a matriz 
 	mat = inicializaMatriz(NLINHAS, NCOLUNAS);
 
-/*  //eu q comentei
 
 	int i, j;
 	//preenchendo a matriz com valores para teste
@@ -31,7 +30,7 @@ int main()
 	Matriz* trp = transposta(mat);
 	printf ("A matriz transposta eh: \n");
 	imprimeMatriz(trp);
-	
+/*
 	//chamando a função do TAD para gerar a matriz multiplicação
 	Matriz* mlt = multiplicacao(mat,trp);
 	printf ("A matriz multiplicacao eh: \n");
@@ -43,6 +42,5 @@ int main()
         destroiMatriz(mat);
         destroiMatriz(trp);
 	destroiMatriz(mlt);
-
 */
 }
