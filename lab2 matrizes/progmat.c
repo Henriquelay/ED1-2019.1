@@ -6,14 +6,14 @@
 #include <stdio.h>
 #include "matriz.h"
 
-//definindo constantes para o n˙mero de linhas e colunas da matriz
+//definindo constantes para o n√∫mero de linhas e colunas da matriz
 #define NLINHAS 4
 #define NCOLUNAS 4
 
 int main()
 {
 	Matriz* mat;
-	//chamando a funcao do TAD Matriz que inicializa a matriz 
+	//chamando a fun√ß√£o do TAD Matriz que inicializa a matriz 
 	mat = inicializaMatriz(NLINHAS, NCOLUNAS);
 	int i, j;
 	//preenchendo a matriz com valores para teste
@@ -24,12 +24,12 @@ int main()
 	//chamando a funcao do TAD matriz para imprimir os elementos da matriz
 	imprimeMatriz(mat);
 
-	//chamando a funÁ„o do TAD para gerar a matriz transposta
+	//chamando a fun√ß√£o do TAD para gerar a matriz transposta
 	Matriz* trp = transposta(mat);
 	printf ("A matriz transposta eh: \n");
 	imprimeMatriz(trp);
 	
-	//chamando a funÁ„o do TAD para gerar a matriz multiplicacao
+	//chamando a fun√ß√£o do TAD para gerar a matriz multiplica√ß√£o
 	Matriz* mlt = multiplicacao(mat,trp);
 	printf ("A matriz multiplicacao eh: \n");
 	imprimeMatriz(mlt);
