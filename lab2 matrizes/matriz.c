@@ -92,7 +92,6 @@ Matriz* multiplicacao (Matriz* mat1, Matriz* mat2){
 */
 void imprimeMatriz(Matriz* mat){
 
-    return NULL;
 }
 
 
@@ -104,7 +103,6 @@ void imprimeMatriz(Matriz* mat){
 */
 void destroiMatriz(Matriz* mat){
 
-    return NULL;
 }
 
 /*  BONUS
@@ -118,5 +116,4 @@ void destroiMatriz(Matriz* mat){
 */
 void giraMatriz(Matriz* mat){
 
-    return NULL;
 }
