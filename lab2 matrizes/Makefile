@@ -17,6 +17,8 @@ OBJ = matriz.o progmat.o
 
 matriz: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
+	rm -f *.o
 
 clean:
 	rm -f *.o
+	rm matriz
