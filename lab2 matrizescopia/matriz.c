@@ -32,10 +32,12 @@ int estaDefinida(Matriz *mat){
 * pre-condicao: -
 * pos-condicao: -
 */
-void swap(int *a, int *b){
+void swap4(int *a, int *b, int *c, int *d){
     int holder = *a;
     *a = *b;
-    *b = holder;
+    *b = *c;
+    *c = *d;
+    *d = holder;
 }
 
 /*Inicializa uma matriz de nlinhas e ncolunas
@@ -50,7 +52,7 @@ Matriz* inicializaMatriz (int nlinhas, int ncolunas){
     mat->nColunas = ncolunas;
     mat->matriz = (int**) malloc(sizeof(int*) * mat->nLinhas);  
 
-    for(int i = 0; i < mat->nColunas; i++)
+    for(int i = 0; i < mat->nLinhas; i++)
         mat->matriz[i] = (int*) malloc(sizeof(int) * mat->nColunas);
 
     return mat;
@@ -64,7 +66,8 @@ Matriz* inicializaMatriz (int nlinhas, int ncolunas){
 */
 void modificaElemento (Matriz* mat, int linha, int coluna, int elem){
     if(estaDefinida(mat))
-        if(coluna <= mat->nColunas && linha <= mat->nLinhas) mat->matriz[linha][coluna] = elem;
+        if(coluna <= mat->nColunas && linha <= mat->nLinhas)
+            mat->matriz[linha][coluna] = elem;
 
 }
 
@@ -114,12 +117,14 @@ int recuperaNLinhas (Matriz* mat){
 * pos-condicao: mat não é modificada e matriz transposta existe
 */
 Matriz* transposta (Matriz* mat){
+    Matriz *mat2 = inicializaMatriz(mat->nColunas, mat->nLinhas);
+
     if(estaDefinida(mat)){
-        for(int i = 0; i < mat->nLinhas; i++){
-            for(int j = i; j < mat->nColunas; j++){
-                swap(&mat->matriz[i][j], &mat->matriz[j][i]);
-            }
-        }
+        for(int i = 0; i < mat2->nLinhas; i++)
+            for(int j = 0; j < mat2->nColunas; j++)
+                mat2->matriz[i][j] = mat->matriz[j][i];
+        
+        return mat2;
     }else puts("DEU MERDA");
     EXIT_FAILURE;
     return NULL;
@@ -127,13 +132,32 @@ Matriz* transposta (Matriz* mat){
 
 /*Retorna a matriz multiplicacao entre mat1 e mat2
 * inputs: as matrizes mat1 e mat2
+gcc -c -o progmat.o progmat.c -I. -Wall -g
 * output: a matriz multiplicação
 * pre-condicao: matrizes mat1 e mat2 existem, e o numero de colunas de mat1 
 * correponde ao numero de linhas de mat2 
 * pos-condicao: mat1 e mat2 não são modificadas e a matriz multiplicacao existe
 */
 Matriz* multiplicacao (Matriz* mat1, Matriz* mat2){
+    if(estaDefinida(mat1) && estaDefinida(mat2)){
+        if(mat1->nColunas == mat2->nLinhas){
+            Matriz *matResult = inicializaMatriz(mat1->nLinhas, mat2->nColunas);
+            for(int i = 0; i < mat1->nLinhas; i++)
+                for(int j = 0; j < mat2->nColunas; j++){
+                    int acc = 0;
+                    for(int k = 0; k < mat1->nColunas; k++)
+                        acc += mat1->matriz[i][k] * mat2->matriz[k][j];
+                    matResult->matriz[i][j] = acc;
+                }
+        return matResult;
 
+
+        } else puts("Voce nao pode multiplicar essas matrizes!");
+    }else {
+        puts("DEU MERDA");
+        EXIT_FAILURE;
+        return NULL;
+    }
     return NULL;
 }
 
@@ -145,9 +169,11 @@ Matriz* multiplicacao (Matriz* mat1, Matriz* mat2){
 */
 void imprimeMatriz(Matriz* mat){
     if(estaDefinida(mat)) 
-        for(int i = 0; i < mat->nColunas; i++)
-            for(int j = 0; j < mat->nLinhas; j++)  
-                printf("%d", mat->matriz[i][j]);
+        for(int i = 0; i < mat->nLinhas; i++){
+            for(int j = 0; j < mat->nColunas; j++)  
+                printf("[%d]\t", mat->matriz[i][j]);
+            puts("");
+        }
 
     else puts("DEU MERDA");
     EXIT_FAILURE;
@@ -181,5 +207,14 @@ void destroiMatriz(Matriz* mat){
 * pos-condicao: mat e rotacionada 90º
 */
 void giraMatriz(Matriz* mat){
+    if(estaDefinida(mat)){
+        if(mat->nColunas == mat->nLinhas){
+            for(int i = 0; i < mat->nLinhas / 2; i++)
+                for(int j = i; j < mat->nColunas - i -1; j++)
+                    swap4(&mat->matriz[i][j], &mat->matriz[j][mat->nColunas - i - 1], &mat->matriz[mat->nColunas - i - 1][mat->nColunas - j - 1], &mat->matriz[mat->nColunas - j - 1][i]);
 
+
+        }else puts("Nao posso girar matrizes nao quadradas!");
+    }else puts("Essa matriz n esta definida para rotacionar!");
+    EXIT_FAILURE;
 }

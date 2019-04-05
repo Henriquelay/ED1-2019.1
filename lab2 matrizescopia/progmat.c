@@ -8,10 +8,9 @@
 
 //definindo constantes para o número de linhas e colunas da matriz
 #define NLINHAS 4
-#define NCOLUNAS 4
+#define NCOLUNAS 3
 
-int main()
-{
+int main(){
 	Matriz* mat;
 	//chamando a função do TAD Matriz que inicializa a matriz 
 	mat = inicializaMatriz(NLINHAS, NCOLUNAS);
@@ -19,18 +18,18 @@ int main()
 
 	int i, j;
 	//preenchendo a matriz com valores para teste
-	for (i=0;i<NLINHAS;i++)
-		for (j=0;j<NCOLUNAS; j++)
+	for (i = 0; i < NLINHAS; i++)
+		for (j = 0; j < NCOLUNAS; j++)
 			//chamando a funcao do TAD matriz para modificar um dado elemento da matriz
-			modificaElemento(mat, i, j,i+j);
+			modificaElemento(mat, i, j, i+j);
 	//chamando a funcao do TAD matriz para imprimir os elementos da matriz
+	printf("A matriz eh: \n");
 	imprimeMatriz(mat);
 
 	//chamando a função do TAD para gerar a matriz transposta
 	Matriz* trp = transposta(mat);
 	printf ("A matriz transposta eh: \n");
 	imprimeMatriz(trp);
-/*
 	//chamando a função do TAD para gerar a matriz multiplicação
 	Matriz* mlt = multiplicacao(mat,trp);
 	printf ("A matriz multiplicacao eh: \n");
@@ -39,8 +38,7 @@ int main()
 	giraMatriz(mlt);
 	imprimeMatriz(mlt);
 
-        destroiMatriz(mat);
-        destroiMatriz(trp);
+	destroiMatriz(mat);
+	destroiMatriz(trp);
 	destroiMatriz(mlt);
-*/
 }
