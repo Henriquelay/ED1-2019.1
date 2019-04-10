@@ -6,19 +6,15 @@
 void addCodigo(tProduto *produto, int *codigo){
     produto->codigo = *codigo;
 }
-
 void addNome(tProduto *produto, char *nome){
-    strcpy(nome,produto->nome);
+    strcpy(produto->nome, nome);
 }
-
 void addPreco(tProduto *produto, float *preco){
     produto->preco = *preco;
 }
-
 void addQuantidade(tProduto *produto, int *quantidade){
     produto->quantidade = *quantidade;
 }
-
 
 
 /////////"GETTERS"
@@ -27,15 +23,12 @@ void addQuantidade(tProduto *produto, int *quantidade){
 int pegaCodigo(tProduto *produto){
     return produto->codigo;
 }
-
 char* pegaNome(tProduto *produto){
     return produto->nome;
 }
-
 float pegaPreco(tProduto *produto){
     return produto->preco;
 }
-
 int pegaQuantidade(tProduto *produto){
     return produto->quantidade;
 }
@@ -55,7 +48,7 @@ tProduto criaProduto(int *codigo, char *nome, float *preco, int *quantidade){
 }
 
 void imprimeProduto(tProduto *produto){
-    printf("Codigo: \t%d\nNome: \t%s\nPreco: \t%f\nQuantidade: \t%d\n", produto->codigo, produto->nome, produto->preco, produto->quantidade);
+    printf("Codigo: \t%d\nNome: \t\t%s\nPreco: \t\t%.2f\nQuantidade: \t%d\n", produto->codigo, produto->nome, produto->preco, produto->quantidade);
 }
 
 

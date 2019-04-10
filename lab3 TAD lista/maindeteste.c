@@ -15,6 +15,7 @@ int main(void){
     scanf(" %d", &quantidade);
 
     tProduto produto = criaProduto(&codigo, nome, &preco, &quantidade);
+    
     imprimeProduto(&produto);
 
 
