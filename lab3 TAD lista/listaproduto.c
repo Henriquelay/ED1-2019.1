@@ -7,6 +7,9 @@ void addCodigo(tProduto *produto, int *codigo){
     produto->codigo = *codigo;
 }
 void addNome(tProduto *produto, char *nome){
+    if(strlen(nome) > 29)
+        printf("O nome eh muito grande!");
+
     strcpy(produto->nome, nome);
 }
 void addPreco(tProduto *produto, float *preco){
@@ -63,19 +66,62 @@ tLista criaListaVazia(void){
     return lista;
 }
 
-void esvaziaLista(tLista *l){
-    l->Ultimo = l->Primeiro;
+void esvaziaLista(tLista *lista){
+    lista->Ultimo = lista->Primeiro;
 }
 
-int estaVazia(tLista *l){
-    if(l->Primeiro!=l->Ultimo) return 0;
+int estaVazia(tLista *lista){
+    if(lista->Primeiro!=lista->Ultimo) 
+        return 0;
     return 1;
 }
 
-void imprimeLista(tLista *l){
-    for(int i = 0; i < l->Ultimo - 1; i++){
-        printf("[\tItem %d:\n", i);
-        imprimeProduto(&l->item[i]);
-        puts("]");
+void imprimeLista(tLista *lista){
+    for(int i = 0; i < lista->Ultimo - 1; i++){
+        printf("[Item %d:\n", i);
+        imprimeProduto(&lista->item[i]);
+        printf("]\n");
+    }
+    printf("\n");
+}
+
+void insere(tLista *lista, tProduto *produto){
+    if(lista->Ultimo > MAXTAM)
+        printf("Esse produto nao cabe na lista, ela esta cheia!\n");
+    else{
+            if(!existeNaLista(lista, produto->codigo))
+            lista->item[lista->Ultimo - 1] = *produto;
+            lista->Ultimo++;
     }
 }
+
+void removeItemIndice(tLista *lista, int *indice){
+    if(*indice < lista->Primeiro || *indice > lista->Ultimo)
+        printf("Esse indice eh invalido nessa lista!\n");
+    
+    //TODO: ISSO AQUI
+    
+    lista->Ultimo--;
+}
+
+void removeItemCodigo(tLista *lista, int *codigo);
+
+tProduto buscaCodigo(tLista *lista, int *codigo){
+    for(int i = 0; i < lista->Ultimo; i++){
+        if(lista->item[i].codigo == *codigo)
+            return lista->item[i];
+    }
+    printf("Nao foram encontrados produtos com esse indice!\n");
+}
+
+char existeNaLista(tLista lista, int *codigo){
+    for(int i = 0; i < lista->Ultimo; i++){
+        if(lista->item[i].codigo == *codigo)
+            return 1;
+    }
+    return 0;
+}
+
+tProduto maisBarato(tLista *lista);
+
+int quantidadeItens(tLista *lista);

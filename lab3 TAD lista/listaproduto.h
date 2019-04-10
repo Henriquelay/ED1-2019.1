@@ -1,5 +1,5 @@
-#ifndef LISTAARR_H_
-#define LISTAARR_H_
+#ifndef LISTAPROD_H_
+#define LISTAPROD_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,6 +27,7 @@ typedef struct{
 ////////////PRODUTO
 //"setters"
 void addCodigo(tProduto *produto, int *codigo);
+/*pre-condição: char tem até 30 caracteres incluindo o '\0'*/
 void addNome(tProduto *produto, char *nome);
 void addPreco(tProduto *produto, float *preco);
 void addQuantidade(tProduto *produto, int *quantidade);
@@ -47,21 +48,25 @@ void imprimeProduto(tProduto *produto);
 
 tLista criaListaVazia(void);
 
-void esvaziaLista(tLista *l);
+void esvaziaLista(tLista *lista);
 
-int estaVazia(tLista *l);
+int estaVazia(tLista *lista);
 
-void removeItemIndice(tLista *l, int *indice);
+void imprimeLista(tLista *lista);
 
-void removeItemCodigo(tLista *l, int *codigo);
+void removeItemIndice(tLista *lista, int *indice);
 
-void insere(tLista *l, tProduto *produto);
+void removeItemCodigo(tLista *lista, int *codigo);
+/*pre-condição: produto cabe na lista lista (não está lotada)*/
+void insere(tLista *lista, tProduto *produto);
 
-tProduto buscaCodigo(tLista *l, int codigo);
+tProduto buscaCodigo(tLista *lista, int *codigo);
 
-tProduto maisBarato(tLista *l);
+char existeNaLista(tLista *lista, int *codigo);
 
-int quantidadeItens(tLista *l);
+tProduto maisBarato(tLista *lista);
+
+int quantidadeItens(tLista *lista);
 
 
-#endif /* LISTAARR_H_ */
+#endif /* LISTAPROD_H_ */
