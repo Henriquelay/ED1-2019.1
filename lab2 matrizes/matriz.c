@@ -211,7 +211,7 @@ void giraMatriz(Matriz* mat){
         if(mat->nColunas == mat->nLinhas){
             for(int i = 0; i < mat->nLinhas / 2; i++)
                 for(int j = i; j < mat->nColunas - i -1; j++)
-                    swap4(&mat->matriz[i][j], &mat->matriz[j][mat->nColunas - i - 1], &mat->matriz[mat->nColunas - i - 1][mat->nColunas - j - 1], &mat->matriz[mat->nColunas - j - 1][i]);
+                    swap4(&mat->matriz[i][j], &mat->matriz[j][mat->nColunas - i - 1], &mat->matriz[mat->nColunas - i - 1][Pmat->nColunas - j - 1], &mat->matriz[mat->nColunas - j - 1][i]);
 
 
         }else puts("Nao posso girar matrizes nao quadradas!");
