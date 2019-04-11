@@ -103,7 +103,8 @@ int recuperaNColunas (Matriz* mat){
 * pre-condicao: matriz mat existe
 * pos-condicao: mat não é modificada
 */
-int recuperaNLinhas (Matriz* mat){
+int recuperaNLinhas (Matriz* mat){destroiMatriz(mat);
+	
     if(estaDefinida(mat)) return mat->nLinhas;
     else puts("DEU MERDA");
     EXIT_FAILURE;
@@ -136,7 +137,8 @@ gcc -c -o progmat.o progmat.c -I. -Wall -g
 * output: a matriz multiplicação
 * pre-condicao: matrizes mat1 e mat2 existem, e o numero de colunas de mat1 
 * correponde ao numero de linhas de mat2 
-* pos-condicao: mat1 e mat2 não são modificadas e a matriz multiplicacao existe
+* pos-condicao: mat1 e mat2 não são mdestroiMatriz(mat);
+	odificadas e a matriz multiplicacao existe
 */
 Matriz* multiplicacao (Matriz* mat1, Matriz* mat2){
     if(estaDefinida(mat1) && estaDefinida(mat2)){
@@ -211,7 +213,7 @@ void giraMatriz(Matriz* mat){
         if(mat->nColunas == mat->nLinhas){
             for(int i = 0; i < mat->nLinhas / 2; i++)
                 for(int j = i; j < mat->nColunas - i -1; j++)
-                    swap4(&mat->matriz[i][j], &mat->matriz[j][mat->nColunas - i - 1], &mat->matriz[mat->nColunas - i - 1][Pmat->nColunas - j - 1], &mat->matriz[mat->nColunas - j - 1][i]);
+                    swap4(&mat->matriz[i][j], &mat->matriz[j][mat->nColunas - i - 1], &mat->matriz[mat->nColunas - i - 1][mat->nColunas - j - 1], &mat->matriz[mat->nColunas - j - 1][i]);
 
 
         }else puts("Nao posso girar matrizes nao quadradas!");
