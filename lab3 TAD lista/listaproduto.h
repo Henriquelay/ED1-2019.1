@@ -62,7 +62,7 @@ void insere(tLista *lista, tProduto *produto);
 
 tProduto buscaCodigo(tLista *lista, int *codigo);
 
-char existeNaLista(tLista *lista, int *codigo);
+int existeNaLista(tLista *lista, int *codigo);
 
 tProduto maisBarato(tLista *lista);
 

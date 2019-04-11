@@ -16,6 +16,8 @@ void addPreco(tProduto *produto, float *preco){
     produto->preco = *preco;
 }
 void addQuantidade(tProduto *produto, int *quantidade){
+    if(*quantidade < 0)
+        printf("==Warning: A quantidade eh menor que 0!!!Continuando==");
     produto->quantidade = *quantidade;
 }
 
@@ -63,6 +65,7 @@ tLista criaListaVazia(void){
     tLista lista;
     lista.Primeiro = INICIOARRANJO;
     lista.Ultimo = INICIOARRANJO;
+
     return lista;
 }
 
@@ -73,6 +76,7 @@ void esvaziaLista(tLista *lista){
 int estaVazia(tLista *lista){
     if(lista->Primeiro!=lista->Ultimo) 
         return 0;
+
     return 1;
 }
 
@@ -89,40 +93,61 @@ void insere(tLista *lista, tProduto *produto){
     if(lista->Ultimo > MAXTAM)
         printf("Esse produto nao cabe na lista, ela esta cheia!\n");
     else{
-            if(!existeNaLista(lista, &produto->codigo))
-            lista->item[lista->Ultimo - 1] = *produto;
-            lista->Ultimo++;
+            if(!existeNaLista(lista, &produto->codigo)){
+                lista->item[lista->Ultimo - 1] = *produto;
+                lista->Ultimo++;
+            } else 
+                printf("O item ja esta na lista! Nao foi adicionado");
     }
 }
 
 void removeItemIndice(tLista *lista, int *indice){
     if(*indice < lista->Primeiro || *indice > lista->Ultimo)
-        printf("Esse indice eh invalido nessa lista!\n");
-    
-    //TODO: ISSO AQUI
-    
-    lista->Ultimo--;
+        printf("Esse produto eh invalido nessa lista!\n");
+    else
+        if(lista->item[*indice].quantidade > 0)
+            printf("Produto em estoque nao pode ser removido!\n");
+        else{
+            lista->Ultimo--;
+            for(int i = *indice; i < lista->Ultimo; i++)
+                lista->item[i] = lista->item[i+1];
+            }
 }
 
-void removeItemCodigo(tLista *lista, int *codigo);
+void removeItemCodigo(tLista *lista, int *codigo){
+    int indiceNaLista = existeNaLista(lista, codigo);
+
+    if(!indiceNaLista)
+        printf("Esse item nem existe na lista!\n");
+    else
+        removeItemIndice(lista, &indiceNaLista);
+}
 
 tProduto buscaCodigo(tLista *lista, int *codigo){
-    for(int i = 0; i < lista->Ultimo; i++){
+    for(int i = 0; i < lista->Ultimo; i++)
         if(lista->item[i].codigo == *codigo)
             return lista->item[i];
-    }
+
     printf("Nao foram encontrados produtos com esse indice!\n");
 }
 
-char existeNaLista(tLista *lista, int *codigo){
-    for(int i = 0; i < lista->Ultimo; i++){
+int existeNaLista(tLista *lista, int *codigo){
+    for(int i = 0; i < lista->Ultimo; i++)
         if(lista->item[i].codigo == *codigo)
-            return 1;
-    }
+            return i;
+
     return 0;
 }
 
-tProduto maisBarato(tLista *lista);
+tProduto maisBarato(tLista *lista){
+    tProduto produtoMaisBarato = lista->item[0];
+
+    for(int i = 0; i < lista->Ultimo; i++)
+        if(lista->item[i].preco < produtoMaisBarato.preco)
+            produtoMaisBarato = lista->item[i];
+    
+    return produtoMaisBarato;
+}
 
 int quantidadeItens(tLista *lista){
     return lista->Ultimo - lista->Primeiro;
