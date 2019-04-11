@@ -89,7 +89,7 @@ void insere(tLista *lista, tProduto *produto){
     if(lista->Ultimo > MAXTAM)
         printf("Esse produto nao cabe na lista, ela esta cheia!\n");
     else{
-            if(!existeNaLista(lista, produto->codigo))
+            if(!existeNaLista(lista, &produto->codigo))
             lista->item[lista->Ultimo - 1] = *produto;
             lista->Ultimo++;
     }
@@ -114,7 +114,7 @@ tProduto buscaCodigo(tLista *lista, int *codigo){
     printf("Nao foram encontrados produtos com esse indice!\n");
 }
 
-char existeNaLista(tLista lista, int *codigo){
+char existeNaLista(tLista *lista, int *codigo){
     for(int i = 0; i < lista->Ultimo; i++){
         if(lista->item[i].codigo == *codigo)
             return 1;
@@ -124,4 +124,6 @@ char existeNaLista(tLista lista, int *codigo){
 
 tProduto maisBarato(tLista *lista);
 
-int quantidadeItens(tLista *lista);
+int quantidadeItens(tLista *lista){
+    return lista->Ultimo - lista->Primeiro;
+}
