@@ -41,7 +41,6 @@ TipoApontador BuscaCodigo(int codigo, TipoLista *Lista);
 /*Retira um elemento da lista */
 void Retira(int codigo, TipoLista *Lista, Produto *Item);
 
-
 /*Imprime a lista */
 void ImprimeLista(TipoLista Lista);
 
