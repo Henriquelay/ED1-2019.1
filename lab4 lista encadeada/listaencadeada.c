@@ -14,7 +14,7 @@ Produto criaProduto(int cod, char *nome, int qtd, float preco){
 }
 
 void ImprimeProduto(Produto p){
-    printf("Produto %s:\n-Codigo: %d\n-Preco: %.2f\n-Quantidade: %d\n\n", p.nome, p.codigo, p.preco, p.qtd);
+    printf("Produto %s:\n-Codigo: \t%d\n-Preco: \t%.2f\n-Quantidade: \t%d\n\n", p.nome, p.codigo, p.preco, p.qtd);
 }
 
 
@@ -138,17 +138,25 @@ Produto maisBarato(TipoLista *Lista){
     if(Vazia(*Lista)){
         printf("##### NAO POSSO PEGAR O ITEM MAIS BARATO DE UMA LISTA QUE NAO EXISTE! SAINDO... #########");
         EXIT_FAILURE;
-        Produto a;//para evitar warnings
+        Produto a;//para evitar warnings. O programa já foi interrompido.
         return a;//^
     }
 
     TipoCelula *Selecionado = Lista->Primeiro;
     Produto menosCaro = Selecionado->Item;
 
-    while (Selecionado != NULL){
+    int cont = 0;
+    while (1){
+        printf("#PASSOU VIADO! \t %d\n", cont);
+
+        if(Selecionado->Prox == NULL)
+            break;
+            
         Selecionado = Selecionado->Prox;
-        if(Selecionado->Item.preco < menosCaro.preco)   
+        if(Selecionado->Item.preco < menosCaro.preco)
             menosCaro = Selecionado->Item;
+        
+        cont++;
     }
     return menosCaro;
 }

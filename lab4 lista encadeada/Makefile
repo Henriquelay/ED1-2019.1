@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-I. -Wall  -lm
+CFLAGS=-I. -Wall  -lm -g
 DEPS = listaencadeada.h
 OBJ = proglista_produto.o listaencadeada.o
 
@@ -9,6 +9,7 @@ OBJ = proglista_produto.o listaencadeada.o
 
 ListaProduto: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
+	make clean
 	mv ListaProduto prog
 
 clean:
