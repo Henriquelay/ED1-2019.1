@@ -29,11 +29,11 @@ int main(int argc, char *argv[])
   Insere(item, &lista);
 //  Insere(item, &lista);
   ImprimeLista(lista);
-  Retira(4, &lista, &item);
+/*   Retira(4, &lista, &item);
   ImprimeLista(lista);
   TipoApontador p = BuscaCodigo(3, &lista);
   ImprimeProduto(p->Item);
   item = maisBarato(&lista);
-  Imprime(item);
+  ImprimeProduto(item); */
   return(0);
 }

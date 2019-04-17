@@ -26,40 +26,41 @@ void FLVazia(TipoLista *Lista){
 }
 
 int Vazia(TipoLista Lista){
+
     if(Lista.Primeiro == NULL)
         return 1;
     return 0;
 }
 
 void Insere(Produto x, TipoLista *Lista){
+
+    //Apenas aloco o primeiro elemento;
     if(Vazia(*Lista)){
         Lista->Primeiro = Lista->Ultimo = (TipoApontador) malloc(sizeof(TipoCelula));
-        if(Vazia(*Lista)){
+        if(Vazia(*Lista))
             printf("####### ACABOU A MEMORIA A AO ALOCAR MAIS ESPACO, ITEM NÃO FOI ALOCADO... ###########");
-        }else{
-        //crio uma cópia para o produto X para não apontar para ele, evitando problemas de referenciação
-            Lista->Ultimo->Item = x;
-            Lista->Ultimo->Prox = NULL;
-        }
+
+    //Apenas aloco o próximo e configuro o Último corretamente.
     }else{
         Lista->Ultimo->Prox = (TipoApontador) malloc(sizeof(TipoCelula));
-        if(Lista->Ultimo->Prox == NULL){
+        if(Lista->Ultimo->Prox == NULL)
             printf("####### ACABOU A MEMORIA A AO ALOCAR MAIS ESPACO, ITEM NÃO FOI ALOCADO... ###########");
-        } else{
+        else
             Lista->Ultimo = Lista->Ultimo->Prox;
-            //crio uma cópia para o produto X para não apontar para ele, evitando problemas de referenciação
-            Lista->Ultimo->Item = x;
-            Lista->Ultimo->Prox = NULL;
-        }
+
     }
+    //Está após o Else, ou seja, será executado sempre.
+    Lista->Ultimo->Item = x;
+    Lista->Ultimo->Prox = NULL;
 }
 
-void LiberaCelula(Produto *produto){
-    free(produto->nome);
-    free(produto);
+void LiberaCelula(TipoCelula *Celula){
+    free(Celula->Item.nome);
+    free(Celula);
 }
 
 void RetiraCelula(TipoCelula *Anterior, TipoCelula *Selecionada){
+
     if(Anterior != NULL){
         Anterior->Prox = Selecionada->Prox;
     }
@@ -67,8 +68,10 @@ void RetiraCelula(TipoCelula *Anterior, TipoCelula *Selecionada){
 }
 
 void Retira(int codigo, TipoLista *Lista, Produto *Item){
+
     if(Vazia(*Lista))
         printf("####### A LISTA E VAZIA!! #######");
+
     else{
         TipoCelula *Selecionado = Lista->Primeiro;
         TipoCelula *Anterior = NULL;
@@ -85,10 +88,67 @@ void Retira(int codigo, TipoLista *Lista, Produto *Item){
 }
 
 void ImprimeLista(TipoLista Lista){
-    TipoCelula *Selecionado = Lista->Primeiro;
+    TipoCelula *Selecionado = Lista.Primeiro;
 
     while(Selecionado != NULL){
         ImprimeProduto(Selecionado->Item);
         Selecionado = Selecionado->Prox;    
     }
+}
+
+int Quantidade(TipoLista Lista){
+
+    if(Vazia(Lista))
+        return 0;
+
+    int cont = 1;
+    TipoCelula *Selecionado = Lista.Primeiro;
+    
+    while(Selecionado != NULL){
+        cont ++;
+        //configura o passo do While
+        Selecionado = Selecionado->Prox;
+    }
+
+    return cont;
+}
+
+TipoApontador BuscaCodigo(int codigo, TipoLista *Lista){
+
+    if(Vazia(*Lista)){
+        printf("###### A LISTA ESTA VAZIA, NAO POSSO PROCURAR!!! ##########");
+        return NULL;
+    }
+
+    TipoCelula *Selecionado = Lista->Primeiro;
+
+    while(Selecionado != NULL){
+        if(Selecionado->Item.codigo == codigo)
+            return Selecionado;
+
+        Selecionado = Selecionado->Prox;
+    }
+
+    printf("Nao foram encontrado produtos com o codigo %d.\n", codigo);
+    return NULL;
+}
+
+Produto maisBarato(TipoLista *Lista){
+    //Fazendo o guarda da função
+    if(Vazia(*Lista)){
+        printf("##### NAO POSSO PEGAR O ITEM MAIS BARATO DE UMA LISTA QUE NAO EXISTE! SAINDO... #########");
+        EXIT_FAILURE;
+        Produto a;//para evitar warnings
+        return a;//^
+    }
+
+    TipoCelula *Selecionado = Lista->Primeiro;
+    Produto menosCaro = Selecionado->Item;
+
+    while (Selecionado != NULL){
+        Selecionado = Selecionado->Prox;
+        if(Selecionado->Item.preco < menosCaro.preco)   
+            menosCaro = Selecionado->Item;
+    }
+    return menosCaro;
 }

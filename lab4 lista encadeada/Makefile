@@ -9,6 +9,8 @@ OBJ = proglista_produto.o listaencadeada.o
 
 ListaProduto: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
+	mv ListaProduto prog
 
 clean:
 	rm -f *.o
+	rm -f prog

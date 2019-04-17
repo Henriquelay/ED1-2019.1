@@ -47,6 +47,9 @@ void ImprimeLista(TipoLista Lista);
 /*Quantidade de elementos na lista*/
 int Quantidade(TipoLista Lista);
 
+/*Retorna o Item mais barato*/
+Produto maisBarato(TipoLista *Lista);
+
 /**FUNCOES OPACAS DO STRUCT PRODUTO **/
 Produto  criaProduto(int cod, char *nome, int qtd, float preco);
 
