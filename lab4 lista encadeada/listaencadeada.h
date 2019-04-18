@@ -39,7 +39,7 @@ void Insere(Produto x, TipoLista *Lista);
 TipoApontador BuscaCodigo(int codigo, TipoLista *Lista);
 
 /*Retira um elemento da lista */
-void Retira(int codigo, TipoLista *Lista, Produto *Item);
+void Retira(int codigo, TipoLista *Lista);
 
 /*Imprime a lista */
 void ImprimeLista(TipoLista Lista);
@@ -49,6 +49,9 @@ int Quantidade(TipoLista Lista);
 
 /*Retorna o Item mais barato*/
 Produto maisBarato(TipoLista *Lista);
+
+/*Dá free na lista toda*/
+void DestroiLista(TipoLista *Lista);
 
 /**FUNCOES OPACAS DO STRUCT PRODUTO **/
 Produto  criaProduto(int cod, char *nome, int qtd, float preco);

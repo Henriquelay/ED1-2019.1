@@ -67,50 +67,41 @@ void RetiraCelula(TipoCelula *Anterior, TipoCelula *Selecionada){
     LiberaCelula(Selecionada);
 }
 
-void Retira(int codigo, TipoLista *Lista, Produto *Item){
-
-    if(Vazia(*Lista))
-        printf("####### A LISTA E VAZIA!! #######");
-
-    else{
-        TipoCelula *Selecionado = Lista->Primeiro;
+void Retira(int codigo, TipoLista *Lista){
+    if(!(Vazia(*Lista))){
+    
         TipoCelula *Anterior = NULL;
+        TipoCelula *AtUal = Lista->Primeiro;
 
-        while(Selecionado != NULL){
-            if(Selecionado->Item.codigo == codigo)
-                RetiraCelula(Anterior, Selecionado);
+        while(AtUal != NULL){
+            if(AtUal->Item.codigo == codigo)
+                RetiraCelula(Anterior, AtUal);
 
-            //configura o passo do While
-            Anterior = Selecionado;
-            Selecionado = Selecionado->Prox;
+
+            Anterior = AtUal;
+            AtUal = AtUal->Prox;
         }
     }
 }
 
 void ImprimeLista(TipoLista Lista){
-    TipoCelula *Selecionado = Lista.Primeiro;
-
-    while(Selecionado != NULL){
-        ImprimeProduto(Selecionado->Item);
-        Selecionado = Selecionado->Prox;    
+    if(Lista.Primeiro != NULL){
+        ImprimeProduto(Lista.Primeiro->Item);
+        
+        if(Lista.Primeiro->Prox != NULL){
+            Lista.Primeiro = Lista.Primeiro->Prox;
+            ImprimeLista(Lista);
+        }
     }
 }
 
 int Quantidade(TipoLista Lista){
-
     if(Vazia(Lista))
         return 0;
 
-    int cont = 1;
-    TipoCelula *Selecionado = Lista.Primeiro;
-    
-    while(Selecionado != NULL){
-        cont ++;
-        //configura o passo do While
-        Selecionado = Selecionado->Prox;
-    }
+    Lista.Primeiro = Lista.Primeiro->Prox;
 
-    return cont;
+    return 1 + Quantidade(Lista);
 }
 
 TipoApontador BuscaCodigo(int codigo, TipoLista *Lista){
@@ -147,8 +138,6 @@ Produto maisBarato(TipoLista *Lista){
 
     int cont = 0;
     while (1){
-        printf("#PASSOU VIADO! \t %d\n", cont);
-
         if(Selecionado->Prox == NULL)
             break;
             
@@ -159,4 +148,13 @@ Produto maisBarato(TipoLista *Lista){
         cont++;
     }
     return menosCaro;
+}
+
+void DestroiLista(TipoLista *Lista){
+    if(!Vazia(*Lista)){
+        TipoLista ListaRecur = *Lista;
+        ListaRecur.Primeiro = ListaRecur.Primeiro->Prox;
+        DestroiLista(&ListaRecur);
+        LiberaCelula(Lista->Primeiro);
+    }
 }
