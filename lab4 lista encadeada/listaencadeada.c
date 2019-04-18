@@ -78,7 +78,6 @@ void Retira(int codigo, TipoLista *Lista){
                 RetiraCelula(Anterior, Atual);
                 break;
             }
-            
             Anterior = Atual;
             Atual = Atual->Prox;
         }
