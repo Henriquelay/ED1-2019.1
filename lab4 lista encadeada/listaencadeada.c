@@ -71,15 +71,16 @@ void Retira(int codigo, TipoLista *Lista){
     if(!(Vazia(*Lista))){
     
         TipoCelula *Anterior = NULL;
-        TipoCelula *AtUal = Lista->Primeiro;
+        TipoCelula *Atual = Lista->Primeiro;
 
-        while(AtUal != NULL){
-            if(AtUal->Item.codigo == codigo)
-                RetiraCelula(Anterior, AtUal);
-
-
-            Anterior = AtUal;
-            AtUal = AtUal->Prox;
+        while(Atual != NULL){
+            if(Atual->Item.codigo == codigo){
+                RetiraCelula(Anterior, Atual);
+                break;
+            }
+            
+            Anterior = Atual;
+            Atual = Atual->Prox;
         }
     }
 }
