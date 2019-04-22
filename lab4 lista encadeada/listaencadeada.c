@@ -73,6 +73,7 @@ void Retira(int codigo, TipoLista *Lista){
         TipoCelula *Anterior = NULL;
         TipoCelula *Atual = Lista->Primeiro;
 
+
         while(Atual != NULL){
             if(Atual->Item.codigo == codigo){
                 RetiraCelula(Anterior, Atual);
@@ -151,10 +152,10 @@ Produto maisBarato(TipoLista *Lista){
 }
 
 void DestroiLista(TipoLista *Lista){
-    if(!Vazia(*Lista)){
-        TipoLista ListaRecur = *Lista;
-        ListaRecur.Primeiro = ListaRecur.Primeiro->Prox;
-        DestroiLista(&ListaRecur);
-        LiberaCelula(Lista->Primeiro);
+    TipoCelula *Aux = NULL;
+    while(!Vazia(*Lista)){
+        Aux = Lista->Primeiro;
+        Lista->Primeiro = Lista->Primeiro->Prox;
+        LiberaCelula(Aux);
     }
 }
