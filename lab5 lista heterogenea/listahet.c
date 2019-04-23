@@ -12,7 +12,7 @@
 //////////////////////
 
 typedef struct cliente {
-    char* nome;
+    char *nome;
     int id;
 } Cliente;
 
@@ -27,9 +27,9 @@ typedef struct imovel {
 } Imovel;
 
 typedef struct listahet {
-    Cliente* dono;
+    Cliente *dono;
     void* item;
-    ListaHet* Prox;
+    ListaHet *Prox;
     int identificador;
 } ListaHet;
 
@@ -59,13 +59,22 @@ ListaHet* cria(void){
 * pre-condicao: nome e id validos
 * pos-condicao: estrutura cliente criada, com os campos nome e id corretamente atribuidos
 */
-Cliente* cria_cliente (char* nome, int id){
+Cliente* cria_cliente (char *nome, int id){
     if(nome == NULL) return NULL;
     Cliente *cli = (Cliente*) malloc(sizeof(Cliente));
     cli->nome = (char*) malloc(sizeof(char) * (strlen(nome) + 1));
     strcpy(cli->nome,nome);
     cli->id = id;
     return cli;
+}
+
+/*Dá free nos maluco*/
+void libera_cliente(Cliente *cli){
+    if(cli == NULL)
+        return;
+
+    free(cli->nome);
+    free(cli);
 }
 
 /*Cria uma estrutura do tipo Movel
@@ -102,23 +111,25 @@ Imovel* cria_imovel (int id, int ano, float valor){
 * pre-condicao: lista, cliente e automovel validos
 * pos-condicao: lista atualizada com o item inserido na primeira posicao
 */
-ListaHet* insere_movel (ListaHet* lista, Cliente* dono, Movel* item){
-    if(lista == NULL || lista->Prox == NULL || dono == NULL || item == NULL)
+ListaHet* insere_movel (ListaHet *lista, Cliente *dono, Movel *item){
+    if(lista == NULL)
         return NULL;
 
-    ListaHet *Celula = cria();
-    Celula->dono = dono;
-    Celula->item = item;
-    Celula->identificador = MOV;
+    //Dessa vez vou tentar criar tudo por cópia
+    ListaHet *inserir = cria();
+    inserir->dono = cria_cliente(dono->nome, dono->id);
+    inserir->item = cria_movel(item->placa, item->ano, item->valor);
+    inserir->identificador = MOV; //!!!!!!
 
-    ListaHet *atual = lista->Prox;  //primeiro elemento
+    if(lista->identificador == NOTITEM){ 
+        //aqui eu preencho a cabeça da lista como se fosse a porcaria de um item normal
+        //caso a lista esteja declarada e sem elementos;
+        *lista = *inserir;
+        return lista;
+    }
 
-    while(atual->Prox != NULL)  //deveria parar no ultimo
-        atual = atual->Prox;
-
-    atual->Prox = Celula;
-
-    return lista;
+    inserir->Prox = lista;
+    return inserir;
 }
 
 /*Insere um item (do tipo Imovel) na primeira posicao da lista 
@@ -127,46 +138,48 @@ ListaHet* insere_movel (ListaHet* lista, Cliente* dono, Movel* item){
 * pre-condicao: lista, cliente e imovel validos
 * pos-condicao: lista atualizada com o item inserido na primeira posicao
 */
-ListaHet* insere_imovel (ListaHet* lista, Cliente* dono, Imovel* item){
-    if(lista == NULL || lista->Prox == NULL || dono == NULL || item == NULL)
+ListaHet* insere_imovel (ListaHet *lista, Cliente *dono, Imovel *item){
+    if(lista == NULL)
         return NULL;
 
-    ListaHet *Celula = cria();
-    Celula->dono = dono;
-    Celula->item = item;
-    Celula->identificador = IMOV;
+    //Dessa vez vou tentar criar tudo por cópia
+    ListaHet *inserir = cria();
+    inserir->dono = cria_cliente(dono->nome, dono->id);
+    inserir->item = cria_movel(item->identificador, item->ano, item->valor);
+    inserir->identificador = IMOV; //!!!!!!
 
-    ListaHet *atual = lista->Prox;  //primeiro elemento
+    if(lista->identificador == NOTITEM){ 
+        //aqui eu preencho a cabeça da lista como se fosse a porcaria de um item normal
+        //caso a lista esteja declarada e sem elementos;
+        *lista = *inserir;
+        return lista;
+    }
 
-    while(atual->Prox != NULL)  //deveria parar no ultimo
-        atual = atual->Prox;
-
-    atual->Prox = Celula;
-
-    return lista;
-}
-/*Imprime o Cliente*/
-void imprimeCliente(Cliente *cli){
-    if(cli != NULL)
-        printf("Cliente: %s\nID:%d\n", cli->nome, cli->id);
+    inserir->Prox = lista;
+    return inserir;
 }
 
-/*Imprime o móvel/imóvel*/
+//filtro de impressão
 void imprimeItem(ListaHet *item){
     if(item != NULL)
         switch(item->identificador){
             case MOV:
-                printf("\tAno: %d\t Placa:%d\n\tValor:%.2f\n", ((Movel*)item->item)->ano, ((Movel*)item->item)->placa, ((Movel*)item->item)->valor);
+                printf("\tPlaca: %d, Ano: %d, Valor: %.2f\n_________________\n", ((Movel*)item->item)->placa, ((Movel*)item->item)->ano, ((Movel*)item->item)->valor);
             break;
             case IMOV:
-                printf("\tAno: %d\t Identificador:%d\n\tValor:%.2f\n", ((Imovel*)item->item)->ano, ((Imovel*)item->item)->identificador, ((Imovel*)item->item)->valor);
+                printf("\tIdentificador: %d, Ano: %d, Valor: %.2f\n_________________\n", ((Imovel*)item->item)->identificador, ((Imovel*)item->item)->ano, ((Imovel*)item->item)->valor);
             break;
-            default: 
-                printf("#EXCUSE ME WTF#\n");
-                printf("\tNUMERO ZOADO: %d\n", item->identificador);
+            default:
+                printf("#EXCUSE ME WTF!#\n");
         }
 }
 
+void imprimeCliente(Cliente *cli){
+    if(cli == NULL)
+        return;
+
+    printf("Cliente: %s\nID: %d\n", cli->nome, cli->id);
+}
 
 /*Imprime os elementos da lista. Para cada elemento da lista, deve-se imprimir os dados do Cliente, seguido dos dados do im�vel (caso o item seja um im�vel) ou dos dados do autom�vel (caso o item seja um movel)
 * inputs: a lista
@@ -174,31 +187,28 @@ void imprimeItem(ListaHet *item){
 * pre-condicao: lista valida
 * pos-condicao: lista inalterada
 */
-void imprime (ListaHet* lista){    
-    if(lista == NULL || lista->Prox == NULL)
+void imprime (ListaHet *lista){
+    if(lista->identificador == NOTITEM)
         return;
-    ListaHet *atual = lista->Prox;
 
-    while(atual != NULL){
-        imprimeCliente(atual->dono);
-        imprimeItem(atual);
-        printf("_______________________\n");
+    ListaHet *selecionada = lista;
 
-        atual = atual->Prox;
+    while(selecionada != NULL){
+        imprimeCliente(selecionada->dono);
+        imprimeItem(selecionada);
+        selecionada = selecionada->Prox;
     }
 }
 
-/*Libera todo o espaço de memoria alocado pela celula, corretamente, e retorna qual seria a próxima célula*/
-ListaHet* liberaCelula(ListaHet *celula){
-    if(celula != NULL){
-        ListaHet *proxima = celula->Prox;
-        free(celula->dono->nome);
-        free(celula->dono);
-        free(celula->item);
-        free(celula);
-        return proxima;
-    }
-    return NULL;
+void removeCelula(ListaHet *selecionada, ListaHet *anterior){
+    if(selecionada == NULL)
+        return;
+
+    if(anterior != NULL)
+        anterior->Prox = anterior->Prox->Prox;
+
+    libera_cliente(selecionada->dono);
+    free(selecionada);
 }
 
 /*Retira da lista todos os itens assegurados de um dado cliente 
@@ -207,22 +217,28 @@ ListaHet* liberaCelula(ListaHet *celula){
 * pre-condicao: lista e identificador do cliente validos
 * pos-condicao: lista nao contem itens do cliente cujo identificador eh id_cliente
 */
-ListaHet* retira_cliente (ListaHet* lista, int id_cliente){
-    if(lista == NULL || lista->Prox == NULL)
+ListaHet* retira_cliente (ListaHet *lista, int id_cliente){
+    if(lista == NULL)
         return NULL;
+    if(lista->identificador == NOTITEM)
+        return lista;
+    
+    ListaHet *selecionada = lista;
+    ListaHet *anterior = NULL;
 
-    ListaHet *atual = lista->Prox;
-    ListaHet *anterior, *proxima = NULL;
+    while(selecionada != NULL){
+        if(selecionada->dono->id == id_cliente)
+            removeCelula(selecionada, anterior);
 
-    while(atual != NULL){
-        if(atual->identificador == id_cliente){
-            proxima = liberaCelula(atual);
-            if(anterior != NULL)
-                anterior->Prox = proxima;
+        if(selecionada == NULL){    //se foi liberada
+            if(anterior == NULL)    //se foi a primeira
+                selecionada = lista;
+            if(anterior != NULL)    //se não foi a primeira
+                selecionada = anterior;
         }
 
-        anterior = atual;
-        atual = atual->Prox;
+        anterior = selecionada;
+        selecionada = selecionada->Prox;
     }
 
     return lista;
@@ -234,28 +250,27 @@ ListaHet* retira_cliente (ListaHet* lista, int id_cliente){
 * pre-condicao: lista e identificador do cliente validos
 * pos-condicao: lista inalterada
 */
-float calcula_valor_assegurado (ListaHet* lista, Cliente* dono, float taxa_movel, float taxa_imovel){
-    if(lista == NULL)
+float calcula_valor_assegurado (ListaHet *lista, Cliente *dono, float taxa_movel, float taxa_imovel){
+    if(lista == NULL || lista->identificador == NOTITEM)
         return 0;
-
-    ListaHet *atual = lista;
+    
     float acumulador = 0;
+    ListaHet *selecionada = lista;
 
-    while(atual != NULL){
-        if(atual->dono->id == dono->id){
-            switch(atual->identificador){
-                case MOV:
-                    acumulador += ((Movel*)atual->item)->valor * taxa_movel;
-                break;
-                case IMOV:
-                    acumulador += ((Movel*)atual->item)->valor * taxa_imovel;
-                break;
-                default:
-                    printf("AI CE TA TROLANO NE PARSA\n");
-            }
+    while(selecionada != NULL){
+        if(selecionada->dono->id == dono->id)
+            switch(selecionada->identificador){
+            case MOV:
+                acumulador += ((Movel*)selecionada->item)->valor * taxa_movel;
+            break;
+            case IMOV:
+                acumulador += ((Imovel*)selecionada->item)->valor * taxa_imovel;
+            break;
+            default:
+                printf("#HOL UP!#\n");
         }
-        atual = atual->Prox;
-    }
 
+        selecionada = selecionada->Prox;
+    }
     return acumulador;
 }

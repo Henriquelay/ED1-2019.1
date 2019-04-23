@@ -16,7 +16,7 @@ int main()
     ListaHet* lista = cria();
 
     //tenta retirar com lista vazia
-    lista = retira_cliente(lista, 1); 
+    //lista = retira_cliente(lista, 1); 
 
     // criando alguns alunos apenas para testar (mais adequado seria carregar de um arquivo)
     Cliente* maria = cria_cliente("maria", 1);
@@ -47,6 +47,8 @@ int main()
 
 
     lista = retira_cliente (lista, 1);
+
+    puts("Maria removida!");
     
     printf ("Imprimindo a lista novamente \n");
 
@@ -59,9 +61,10 @@ int main()
 
     lista = retira_cliente (lista, 2);
 
+    puts("Sofia removida!");
+
     printf ("Imprimindo a lista novamente \n");
     imprime (lista);
-
 
     printf ("\n **** PARABENS!!! **** \n\n");
 }

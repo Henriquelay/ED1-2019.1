@@ -35,7 +35,7 @@ typedef struct listahet ListaHet;
 * pre-condicao: nenhuma
 * pos-condicao: lista criada e vazia
 */
-ListaHet* cria ();
+ListaHet* cria(void);
 
 /*Cria uma estrutura do tipo Cliente
 * inputs: nome do cliente e o identificador do cliente
@@ -45,6 +45,8 @@ ListaHet* cria ();
 */
 Cliente* cria_cliente (char* nome, int id);
 
+/*Dá free nos maluco*/
+void libera_cliente(Cliente *cli);
 
 /*Cria uma estrutura do tipo Movel
 * inputs: placa, ano de fabricacao e valor do automovel 
@@ -52,7 +54,7 @@ Cliente* cria_cliente (char* nome, int id);
 * pre-condicao: placa, ano e valor validos
 * pos-condicao: estrutura movel criada
 */
-Movel* cria_movel (int placa, int ano, float valor);
+Movel* cria_movel(int placa, int ano, float valor);
 
 /*Cria uma estrutura do tipo Imovel
 * inputs: identificador, ano de construcao e o valor do imovel
@@ -60,7 +62,7 @@ Movel* cria_movel (int placa, int ano, float valor);
 * pre-condicao: id, ano e valor validos
 * pos-condicao: estrutura imovel criada
 */
-Imovel* cria_imovel (int id, int ano, float valor);
+Imovel* cria_imovel(int id, int ano, float valor);
 
 /*Insere um item (do tipo Movel) na primeira posicao da lista 
 * inputs: a lista, o cliente dono do automovel e o item a ser inserido
@@ -68,7 +70,7 @@ Imovel* cria_imovel (int id, int ano, float valor);
 * pre-condicao: lista, cliente e automovel validos
 * pos-condicao: lista atualizada com o item inserido na primeira posicao
 */
-ListaHet* insere_movel (ListaHet* lista, Cliente* dono, Movel* item);
+ListaHet* insere_movel(ListaHet* lista, Cliente* dono, Movel* item);
 
 
 /*Insere um item (do tipo Imovel) na primeira posicao da lista 
@@ -77,7 +79,7 @@ ListaHet* insere_movel (ListaHet* lista, Cliente* dono, Movel* item);
 * pre-condicao: lista, cliente e imovel validos
 * pos-condicao: lista atualizada com o item inserido na primeira posicao
 */
-ListaHet* insere_imovel (ListaHet* lista, Cliente* dono, Imovel* item);
+ListaHet* insere_imovel(ListaHet* lista, Cliente* dono, Imovel* item);
 
 /*Imprime os elementos da lista. Para cada elemento da lista, deve-se imprimir os dados do Cliente, seguido dos dados do im�vel (caso o item seja um im�vel) ou dos dados do autom�vel (caso o item seja um movel)
 * inputs: a lista
@@ -85,7 +87,7 @@ ListaHet* insere_imovel (ListaHet* lista, Cliente* dono, Imovel* item);
 * pre-condicao: lista valida
 * pos-condicao: lista inalterada
 */
-void imprime (ListaHet* lista);
+void imprime(ListaHet* lista);
 
 /*Retira da lista todos os itens assegurados de um dado cliente 
 * inputs: a lista e o identificador do cliente
@@ -93,7 +95,7 @@ void imprime (ListaHet* lista);
 * pre-condicao: lista e identificador do cliente validos
 * pos-condicao: lista nao contem itens do cliente cujo identificador eh id_cliente
 */
-ListaHet* retira_cliente (ListaHet* lista, int id_cliente);
+ListaHet* retira_cliente(ListaHet* lista, int id_cliente);
 
 /*Calcula o valor total assegurado de um dado cliente (incluindo moveis e imoveis). Note que o valor assegurado depende da taxa estipulada para o tipo do item. O calculo do valor assegurado para UM dado item deve ser: valor_item*taxa_item
 * inputs: a lista, o endereco do cliente, e as taxas para o calculo do valor assegurado. 
@@ -101,6 +103,6 @@ ListaHet* retira_cliente (ListaHet* lista, int id_cliente);
 * pre-condicao: lista e identificador do cliente validos
 * pos-condicao: lista inalterada
 */
-float calcula_valor_assegurado (ListaHet* lista, Cliente* dono, float taxa_movel, float taxa_imovel);
+float calcula_valor_assegurado(ListaHet* lista, Cliente* dono, float taxa_movel, float taxa_imovel);
 
 #endif
