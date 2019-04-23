@@ -15,7 +15,7 @@ int main()
     ListaHet* lista = cria();
 
     //tenta retirar com lista vazia
-    //lista = retira_cliente(lista, 1); 
+    lista = retira_cliente(lista, 1); 
 
     // criando alguns alunos apenas para testar (mais adequado seria carregar de um arquivo)
     Cliente* maria = cria_cliente("maria", 1);

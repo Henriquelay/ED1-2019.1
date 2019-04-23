@@ -122,7 +122,8 @@ ListaHet* insere_movel (ListaHet *lista, Cliente *dono, Movel *item){
     if(lista->identificador == NOTITEM){ 
         //aqui eu preencho a cabeça da lista como se fosse a porcaria de um item normal
         //caso a lista esteja declarada e sem elementos;
-        *lista = *inserir;
+        free(lista);
+        lista = inserir;
         return lista;
     }
 
@@ -149,7 +150,8 @@ ListaHet* insere_imovel (ListaHet *lista, Cliente *dono, Imovel *item){
     if(lista->identificador == NOTITEM){ 
         //aqui eu preencho a cabeça da lista como se fosse a porcaria de um item normal
         //caso a lista esteja declarada e sem elementos;
-        *lista = *inserir;
+        free(lista);
+        lista = inserir;
         return lista;
     }
 
@@ -186,8 +188,9 @@ void imprimeCliente(Cliente *cli){
 * pos-condicao: lista inalterada
 */
 void imprime (ListaHet *lista){
-    if(lista->identificador == NOTITEM)
-        return;
+    if(lista != NULL)
+        if(lista->identificador == NOTITEM)
+            return;
 
     ListaHet *selecionada = lista;
 
@@ -283,8 +286,10 @@ float calcula_valor_assegurado (ListaHet *lista, Cliente *dono, float taxa_movel
 }
 
 void destroi_lista(ListaHet *lista){
-    if(lista != NULL){
-        destroi_lista(lista->Prox);
-        removeCelula(lista);
+    ListaHet *primeiro = NULL;
+    while(lista != NULL){
+        primeiro = lista;
+        lista = lista->Prox;
+        removeCelula(primeiro);
     }
 }
