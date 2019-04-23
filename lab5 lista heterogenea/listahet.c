@@ -1,7 +1,5 @@
 #include "listahet.h"
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+
 
 
 //////////////////////
@@ -72,8 +70,8 @@ Cliente* cria_cliente (char *nome, int id){
 void libera_cliente(Cliente *cli){
     if(cli == NULL)
         return;
-
-    free(cli->nome);
+    if(cli->nome != NULL)
+        free(cli->nome);
     free(cli);
 }
 
@@ -200,14 +198,12 @@ void imprime (ListaHet *lista){
     }
 }
 
-void removeCelula(ListaHet *selecionada, ListaHet *anterior){
+void removeCelula(ListaHet *selecionada){
     if(selecionada == NULL)
         return;
 
-    if(anterior != NULL)
-        anterior->Prox = anterior->Prox->Prox;
-
     libera_cliente(selecionada->dono);
+    free(selecionada->item);
     free(selecionada);
 }
 
@@ -226,20 +222,31 @@ ListaHet* retira_cliente (ListaHet *lista, int id_cliente){
     ListaHet *selecionada = lista;
     ListaHet *anterior = NULL;
 
-    while(selecionada != NULL){
-        if(selecionada->dono->id == id_cliente)
-            removeCelula(selecionada, anterior);
-
-        if(selecionada == NULL){    //se foi liberada
-            if(anterior == NULL)    //se foi a primeira
-                selecionada = lista;
-            if(anterior != NULL)    //se não foi a primeira
-                selecionada = anterior;
-        }
-
+    while(selecionada != NULL && selecionada->dono->id != id_cliente){
         anterior = selecionada;
         selecionada = selecionada->Prox;
     }
+
+    if(selecionada == NULL) //não encontrou nada
+        return lista;
+    if(anterior == NULL)
+        lista = selecionada->Prox;
+    else
+        anterior->Prox = selecionada->Prox;
+
+    removeCelula(selecionada);
+
+
+    // CAUTION, ~REAL PROGRAMMING~ JANK BELOW:
+    selecionada = lista; //percorro pra saber se tem mais algum, se tiver, executo a função denovo
+                        //é muito ineficiente, mas é oq eu consigo fazer sem dar erro de leitura
+                        //com o tempo de tenho, tô morrendo de sono
+                        //então ela virou meio recursiva, meio iterativa. Bosta.
+    while(selecionada != NULL && selecionada->dono->id != id_cliente)
+        selecionada = selecionada->Prox;
+    if(selecionada != NULL) //encontrou algo
+        lista = retira_cliente(lista, id_cliente);
+
 
     return lista;
 }
@@ -273,4 +280,11 @@ float calcula_valor_assegurado (ListaHet *lista, Cliente *dono, float taxa_movel
         selecionada = selecionada->Prox;
     }
     return acumulador;
+}
+
+void destroi_lista(ListaHet *lista){
+    if(lista != NULL){
+        destroi_lista(lista->Prox);
+        removeCelula(lista);
+    }
 }

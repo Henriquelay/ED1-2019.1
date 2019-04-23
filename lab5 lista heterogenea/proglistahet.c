@@ -4,7 +4,6 @@
 * Testa funcoes de criacao, Insercao, Impressao, Retirada e Calculo do valor assegurado(Vale 10,0)
 *********************************
 */
-#include <stdio.h>
 #include "listahet.h"
 
 int main()
@@ -43,7 +42,7 @@ int main()
 
     float valor_assegurado_jose = calcula_valor_assegurado (lista, jose, 0.7, 0.25);
 
-    printf ("O valor assegurado de Jose eh: %f \n", valor_assegurado_jose);
+    printf ("O valor assegurado de Jose eh: %.2f \n", valor_assegurado_jose);
 
 
     lista = retira_cliente (lista, 1);
@@ -57,7 +56,7 @@ int main()
 
     float valor_assegurado_sofia = calcula_valor_assegurado (lista, sofia, 0.7, 0.25);
 
-    printf ("O valor assegurado de sofia eh: %f \n", valor_assegurado_sofia);
+    printf ("O valor assegurado de sofia eh: %.2f \n", valor_assegurado_sofia);
 
     lista = retira_cliente (lista, 2);
 
@@ -65,6 +64,19 @@ int main()
 
     printf ("Imprimindo a lista novamente \n");
     imprime (lista);
+
+    destroi_lista(lista);
+
+    libera_cliente(maria);
+    libera_cliente(jose);
+    libera_cliente(sofia);
+
+    free(carro_sofia);
+    free(carro1_jose);
+    free(carro_maria);
+    free(carro2_jose);
+    free(casa_sofia);
+    free(casa_jose);
 
     printf ("\n **** PARABENS!!! **** \n\n");
 }

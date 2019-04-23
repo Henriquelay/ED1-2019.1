@@ -1,6 +1,10 @@
 #ifndef _LISTAHET_H_
 #define _LISTAHET_H_
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
 /*Estrutura Cliente(tipo opaco)
   char* nome;
   int id;
@@ -104,5 +108,8 @@ ListaHet* retira_cliente(ListaHet* lista, int id_cliente);
 * pos-condicao: lista inalterada
 */
 float calcula_valor_assegurado(ListaHet* lista, Cliente* dono, float taxa_movel, float taxa_imovel);
+
+/*Boa noite*/
+void destroi_lista(ListaHet *lista);
 
 #endif
