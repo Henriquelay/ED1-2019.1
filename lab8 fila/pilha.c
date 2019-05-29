@@ -32,7 +32,7 @@ Pilha* cria_pilha()
 void push(Pessoa* pessoa, Pilha* pilha){
 
    if (pilha->topo == MaxTam)
-		return;
+	  return;
 	else {
 	  pilha->vet[pilha->topo] = pessoa;
 	  pilha->topo++;

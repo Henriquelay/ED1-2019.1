@@ -50,9 +50,8 @@ int main()
     Pessoa* retirado = retira (f);
     // Insere pessoa1 no final da fila    
     insere (retirado, f);
-    printf("Quantidade: %d\n", tamanho_pilha((Pilha*)f));
     // Retira pessoa2 do inicio da fila
-   /* retirado = retira (f);
+    retirado = retira (f);
     // Insere pessoa2 no final da fila
     insere (retirado, f);
     // Retira pessoa3 do inicio da fila
@@ -94,8 +93,11 @@ int main()
 
     printf ("---------- Imprime fila Menores-----------\n");
     //Imprime a fila com todas as pessoas menores que 60
-    imprime_fila(f_menores);*/
+    imprime_fila(f_menores);
 
     //libera a memória ocupada pela fila 
     f = destroi_fila(f);
+    destroi_pessoa(pessoa11);
+    f_maiores = destroi_fila(f_maiores);
+    f_menores = destroi_fila(f_menores);
 }
