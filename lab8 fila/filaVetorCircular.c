@@ -60,10 +60,9 @@ void separa_filas(Fila *f, Fila *f_maiores, Fila *f_menores){
     if(f == NULL || f_maiores == NULL || f_menores == NULL) return;
     if(Vazia_fila(f)) return;
 
-    int iteracoes = f->qtd;
     for(int i = 0; i < iteracoes; i++){
         Pessoa *retirado = retira(f);
-/bin/bash: :wall: command not found
+        if(retorna_idade(p) < 60)
             insere(retirado, f_menores);
         else
             insere(retirado, f_maiores);

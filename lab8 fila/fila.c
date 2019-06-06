@@ -1,4 +1,5 @@
 #include "fila.h"
+#include <stdio.h>
 
 
 No* inicia_No(Pessoa *p){
@@ -57,22 +58,28 @@ void imprime_fila(Fila *f){
     return;
 }
 
-void separa_filas(Fila *f, Fila *f_maiores, Fila *f_menores){}
-
-void destroi_no(No *no){
-    if(no == NULL) return;
-    destroi_pessoa(no->p);
-    free(no);
-    return;
+void separa_filas(Fila *f, Fila *f_maiores, Fila *f_menores){
+    if(f == NULL || f_maiores == NULL || f_menores == NULL) return;
+    if(Vazia_fila(f)) return;
+    Pessoa *p = NULL;
+    for(No *aux = f->ini; f->ini != NULL; aux = f->ini){
+        f->ini = f->ini->prox;
+        p = retira(f);
+        if(retorna_idade(p) < 60)
+            insere(p, f_menores);
+        else
+            insere(p, f_maiores);
+    }
 }
 
 Fila *destroi_fila(Fila *f){
     if(f == NULL) return NULL;
        
-    for(No *aux = f->ini; aux != NULL; aux = f->ini){
+    for(No *aux = f->ini; f->ini != NULL; aux = f->ini){
         f->ini = f->ini->prox;
-        destroi_no(aux);
+        destroi_pessoa(retira(f));
     }
+    free(f);
     return f;
 
 }

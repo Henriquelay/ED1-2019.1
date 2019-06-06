@@ -96,7 +96,7 @@ int main()
 
     //libera a memória ocupada pela fila */
     f = destroi_fila(f);
-    destroi_pessoa(pessoa11);
+    //destroi_pessoa(pessoa11);
     f_maiores = destroi_fila(f_maiores);
     f_menores = destroi_fila(f_menores);
 }
