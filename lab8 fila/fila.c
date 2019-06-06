@@ -1,50 +1,73 @@
-#include "fila.h"
 #include <stdio.h>
+#include "fila.h"
 
-Fila* cria_fila(void){
-    return (Fila*) cria_pilha();
+Fila *cria_fila(void){
+    Fila *nova = (Fila*) malloc(sizeof(Fila));
+    if(nova == NULL) return NULL;
+    nova->qtd = nova->ini = nova->fim = 0;
+    return nova;
 }
 
-void insere(Pessoa* pessoa, Fila* f){
-    push(pessoa, (Pilha*)f); 
+int Vazia_fila(Fila *f){
+    if(f != NULL)
+        return (f->qtd == 0);
+    else return 1;
 }
 
-Pessoa* retira(Fila* f){
-    Fila* f2 = (Fila*) cria_pilha();
-    int tam = tamanho_pilha((Pilha*) f);
-    for(int i = 0; i < tam - 1; i++)
-        push(pop((Pilha*)f), (Pilha*)f2);
-    Pessoa* p = pop((Pilha*)f);
-    tam = tamanho_pilha((Pilha*) f2);
-    for(int i = 0; i < tam; i++)
-        push(pop((Pilha*)f2), (Pilha*)f);
-    destroi_pilha((Pilha*)f2);
-    return p;
+void insere(Pessoa *pessoa, Fila *f){
+    if(pessoa == NULL || f == NULL) return;
+    if(f->qtd >= MAXTAM) return;
+
+    f->vetor[f->fim] = pessoa;
+    f->qtd++;
+    f->fim = (f->fim + 1) % MAXTAM;
+    return;
 }
 
-void imprime_fila(Fila* f){
-    imprime_pilha((Pilha*)f);
+Pessoa *retira(Fila *f){
+    if(Vazia_fila(f)) return NULL;
+
+    Pessoa *retirada = f->vetor[f->ini];
+    f->ini = (f->ini + 1) % MAXTAM;
+    f->qtd--;
+
+    return retirada;
 }
 
-int Vazia_fila(Fila* f){
-    return vazia_pilha((Pilha*)f);
+void imprime_fila(Fila *f){
+    for(int i = 0; i < f->qtd; i++)
+        imprimepessoa(f->vetor[(f->ini + i) % MAXTAM]);
+
+    printf("Quantidade: %d\n", f->qtd);
+    return;
 }
 
-Fila* destroi_fila(Fila* f){
-    return (Fila*) destroi_pilha((Pilha*)f);
-}
-
-void separa_filas(Fila* f, Fila* f_maiores, Fila* f_menores){
-    if(f == NULL)
-        return;
-    Pessoa* p = NULL;
-    int tam = tamanho_pilha((Pilha*) f);
-    for(int i = 0; i < tam; i++){
-        p = pop((Pilha*)f);
-        if(retorna_idade(p) >= 60)
-            push(p, (Pilha*) f_maiores);
-        else
-            push(p, (Pilha*) f_menores);
+Fila *destroi_fila(Fila *f){
+    if(f == NULL) return NULL;
+    if(Vazia_fila(f)){
+        free(f);
+        return f;
     }
+
+    int iteracoes = f->qtd;
+    for(int i = 0; i < iteracoes; i++)
+        destroi_pessoa(retira(f));
+    free(f);
+    return f;
+}
+
+void separa_filas(Fila *f, Fila *f_maiores, Fila *f_menores){
+    if(f == NULL || f_maiores == NULL || f_menores == NULL) return;
+    if(Vazia_fila(f)) return;
+
+    int iteracoes = f->qtd;
+    for(int i = 0; i < iteracoes; i++){
+        Pessoa *retirado = retira(f);
+/bin/bash: :wall: command not found
+            insere(retirado, f_menores);
+        else
+            insere(retirado, f_maiores);
+    }
+
     return;
 }

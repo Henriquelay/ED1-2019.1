@@ -17,15 +17,15 @@ int main()
     imprime_fila(f);
  
      // criando algumas pessoas apenas para testar (mais adequado seria carregar de um arquivo)
-    Pessoa* pessoa1= inicializaPessoa("pessoa1", 51, "rua da pessoa1");
-    Pessoa* pessoa2= inicializaPessoa("pessoa2", 63, "rua da pessoa2");
-    Pessoa* pessoa3= inicializaPessoa("pessoa3", 10, "rua da pessoa3");
-    Pessoa* pessoa4= inicializaPessoa("pessoa4", 70, "rua da pessoa4");
-    Pessoa* pessoa5= inicializaPessoa("pessoa5", 20, "rua da pessoa5");
-    Pessoa* pessoa6= inicializaPessoa("pessoa6", 30, "rua da pessoa6");
-    Pessoa* pessoa7= inicializaPessoa("pessoa7", 40, "rua da pessoa7");
-    Pessoa* pessoa8= inicializaPessoa("pessoa8", 45, "rua da pessoa8");
-    Pessoa* pessoa9= inicializaPessoa("pessoa9", 65, "rua da pessoa9");
+    Pessoa* pessoa1 = inicializaPessoa("pessoa1", 51, "rua da pessoa1");
+    Pessoa* pessoa2 = inicializaPessoa("pessoa2", 63, "rua da pessoa2");
+    Pessoa* pessoa3 = inicializaPessoa("pessoa3", 10, "rua da pessoa3");
+    Pessoa* pessoa4 = inicializaPessoa("pessoa4", 70, "rua da pessoa4");
+    Pessoa* pessoa5 = inicializaPessoa("pessoa5", 20, "rua da pessoa5");
+    Pessoa* pessoa6 = inicializaPessoa("pessoa6", 30, "rua da pessoa6");
+    Pessoa* pessoa7 = inicializaPessoa("pessoa7", 40, "rua da pessoa7");
+    Pessoa* pessoa8 = inicializaPessoa("pessoa8", 45, "rua da pessoa8");
+    Pessoa* pessoa9 = inicializaPessoa("pessoa9", 65, "rua da pessoa9");
     Pessoa* pessoa10= inicializaPessoa("pessoa10", 67, "rua da pessoa10");
     Pessoa* pessoa11= inicializaPessoa("pessoa11", 13, "rua da pessoa11");
 
@@ -45,7 +45,6 @@ int main()
     printf ("---------- Imprime fila-----------\n");
     //Imprime a fila com todas as pessoas
     imprime_fila(f);
-    printf("Quantidade: %d\n", tamanho_pilha((Pilha*)f));
     // Retira pessoa1 do inicio da fila
     Pessoa* retirado = retira (f);
     // Insere pessoa1 no final da fila    
@@ -78,7 +77,7 @@ int main()
 
     
     Fila* f_maiores = cria_fila(); 
-    Fila* f_menores = cria_fila(); 
+    Fila* f_menores = cria_fila();
 
     separa_filas(f, f_maiores, f_menores);
 
@@ -95,7 +94,7 @@ int main()
     //Imprime a fila com todas as pessoas menores que 60
     imprime_fila(f_menores);
 
-    //libera a memória ocupada pela fila 
+    //libera a memória ocupada pela fila */
     f = destroi_fila(f);
     destroi_pessoa(pessoa11);
     f_maiores = destroi_fila(f_maiores);

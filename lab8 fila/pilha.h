@@ -103,4 +103,5 @@ void imprimepessoa(Pessoa* p);
 */
 int retorna_idade (Pessoa* p);
 
+void destroi_pessoa(Pessoa *p);
 #endif /* PILHA_H_ */

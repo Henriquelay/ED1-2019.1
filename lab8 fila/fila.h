@@ -5,9 +5,15 @@
 #include <stdlib.h>
 
 /*Tipo que define a fila (tipo opaco)
-  Estrutura interna do tipo deve ser definida na implementação do TAD. Usar como base o TAD Pilha (pilha.h) - não usar outra estrutura de dados
+  Estrutura interna do tipo deve ser definida na implementação do TAD.
+  Fila usando vetor circular
   */
-typedef struct Pilha Fila;
+
+#define MAXTAM 10
+typedef struct fila {
+    Pessoa *vetor[MAXTAM];
+    int qtd, ini, fim;
+}Fila;
 
 /*Cria uma fila vazia, usando pilha
 * inputs: nenhum

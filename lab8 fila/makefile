@@ -20,13 +20,22 @@ main: $(OBJ)
 	$(CC) -o ${EXEC} $^ $(CFLAGS)
 	rm -f *.o
 
-run:
+run: 
 	make main
 	./${EXEC}
+
+valzin: 
+	make main
+	valgrind ./${EXEC}
 
 val:
 	make main
 	valgrind --leak-check=full ./${EXEC}
+
+valzao:
+	make main
+	valgrind --leak-check=full --show-leak-kinds=all -v ./${EXEC}
+
 
 clean:
 	rm -f *.o
