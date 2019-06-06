@@ -9,10 +9,15 @@
   Fila usando vetor circular
   */
 
-#define MAXTAM 10
+typedef struct no No;
+typedef struct no {
+    Pessoa *p;
+    No *prox;
+} No;
+
 typedef struct fila {
-    Pessoa *vetor[MAXTAM];
-    int qtd, ini, fim;
+    No *ini, *fim;
+    int qtd;
 }Fila;
 
 /*Cria uma fila vazia, usando pilha

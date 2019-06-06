@@ -120,10 +120,3 @@ void imprimepessoa(Pessoa* p){
 int retorna_idade (Pessoa* p){
     return p->idade;
 }
-   
-
-
-
-
-
-
