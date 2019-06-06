@@ -1,3 +1,6 @@
+#include "fila.h"
+
+
 No* inicia_No(Pessoa *p){
     if(p == NULL) return NULL;
     
@@ -31,11 +34,45 @@ void insere(Pessoa *pessoa, Fila *f){
         f->fim->prox = novono;
         f->fim = novono;
     }
+    f->qtd++;
     return;
 }
 
 Pessoa *retira(Fila *f){
     if(f == NULL) return NULL;
     
+    Pessoa *p = f->ini->p;
+    No *no = f->ini;
+    f->ini = f->ini->prox;
+    free(no);
+    f->qtd--;
+    return p;
+}
+
+void imprime_fila(Fila *f){
+    if(f == NULL) return;
+
+    for(No *aux = f->ini; aux != NULL; aux = aux->prox)
+        imprimepessoa(aux->p);
+    return;
+}
+
+void separa_filas(Fila *f, Fila *f_maiores, Fila *f_menores){}
+
+void destroi_no(No *no){
+    if(no == NULL) return;
+    destroi_pessoa(no->p);
+    free(no);
+    return;
+}
+
+Fila *destroi_fila(Fila *f){
+    if(f == NULL) return NULL;
+       
+    for(No *aux = f->ini; aux != NULL; aux = f->ini){
+        f->ini = f->ini->prox;
+        destroi_no(aux);
+    }
+    return f;
 
 }
