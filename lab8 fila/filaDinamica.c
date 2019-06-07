@@ -62,8 +62,7 @@ void separa_filas(Fila *f, Fila *f_maiores, Fila *f_menores){
     if(f == NULL || f_maiores == NULL || f_menores == NULL) return;
     if(Vazia_fila(f)) return;
     Pessoa *p = NULL;
-    for(No *aux = f->ini; f->ini != NULL; aux = f->ini){
-        f->ini = f->ini->prox;
+    while(f->ini != NULL){
         p = retira(f);
         if(retorna_idade(p) < 60)
             insere(p, f_menores);
@@ -74,11 +73,9 @@ void separa_filas(Fila *f, Fila *f_maiores, Fila *f_menores){
 
 Fila *destroi_fila(Fila *f){
     if(f == NULL) return NULL;
-       
-    for(No *aux = f->ini; f->ini != NULL; aux = f->ini){
-        f->ini = f->ini->prox;
+
+    while(f->ini != NULL)
         destroi_pessoa(retira(f));
-    }
     free(f);
     return f;
 
