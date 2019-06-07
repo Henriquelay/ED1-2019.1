@@ -9,8 +9,8 @@
 
 CC=gcc
 CFLAGS=-I. -Wall -g
-DEPS= pilha.h fila.h
-OBJ= pilha.o fila.o progfila.o
+DEPS= ArvoreBinaria.h
+OBJ= ArvoreBinaria.o progArvore.o
 EXEC= programa
 
 %.o: src/%.c $(DEPS)
@@ -35,6 +35,7 @@ val:
 valzao:
 	make main
 	valgrind --leak-check=full --show-leak-kinds=all ./${EXEC}
+
 
 clean:
 	rm -f *.o
