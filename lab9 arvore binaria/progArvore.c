@@ -2,12 +2,12 @@
 int main(){
     int N = 8, dados[8] = {50,100,30,20,40,45,35,37};
 
-    ArvBin* raiz = cria_ArvBin();
-
-    int i;
-    for(i=0; i < N; i++)
-        insere_ArvBin(raiz,dados[i]);
- 
+    NO *raiz = NULL;
+    int i, deubom;
+    for(i=0; i < N; i++){
+        deubom = insere_No(&raiz,dados[i]);
+        printf("Deubom? %d\n", deubom);
+    }
     //Alterar o valor de p para testar valores que existem e não
 /*    int p = 36;
     if (consulta_ArvBin(raiz, p))
@@ -16,14 +16,14 @@ int main(){
     	printf("Elemento %d nao encontrado\n", p);
 */	
 
-    emOrdem_ArvBin(raiz);
+    emOrdem_No(raiz);
     printf("\n");
-    preOrdem_ArvBin(raiz);
+    preOrdem_No(raiz);
     printf("\n");
-    posOrdem_ArvBin(raiz);
+    posOrdem_No(raiz);
     printf("\n");
 
-    libera_ArvBin(raiz);
+    libera_No(raiz);
 
     return 0;
 }

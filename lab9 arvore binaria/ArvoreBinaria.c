@@ -1,15 +1,12 @@
 #include "ArvoreBinaria.h"
-
-ArvBin *cria_ArvBin(void){
-    ArvBin *nova = (ArvBin*) malloc(sizeof(ArvBin));
-    if(nova == NULL) return NULL;
-    
-    *nova = NULL;
-    return nova;
+NO **cria_ArvBin(void){
+    NO **novo = (NO**) malloc(sizeof(NO*));
+    if(novo == NULL) return NULL;
+    return novo;
 }
 
 NO *cria_No(int valor){
-    NO *novo = (ArvBin) malloc(sizeof(NO));
+    NO *novo = (NO*) malloc(sizeof(NO));
     if(novo == NULL) return NULL;
 
     novo->esq = novo->dir = NULL;
@@ -17,77 +14,74 @@ NO *cria_No(int valor){
     return novo;
 }
 
-int insere_ArvBin(ArvBin *raiz, int valor){
-    if(raiz == NULL) return 0;
-    if(*raiz == NULL)   //encontrei um lugar
+int insere_No(NO **raiz, int valor){
+    if(raiz == NULL)   //encontreu onde colocar
+        raiz = cria_ArvBin();
+    NO *conteudo = *raiz;
+    if(conteudo == NULL){
         *raiz = cria_No(valor);
-    else{
-        if(valor == (*raiz)->info) 
-            return 0;
-        if(valor < (*raiz)->info)
-            return insere_ArvBin(&(*raiz)->esq, valor);
-        if(valor > (*raiz)->info)
-            return insere_ArvBin(&(*raiz)->dir, valor);
+        printf("Inserido %d.\n", (*raiz)->info);
+        return 1;
     }
-    return 1;
+    if(conteudo->info == valor) return 0;
+    if(valor > conteudo->info)
+        return insere_No(&conteudo->dir, valor);
+    else
+        return insere_No(&conteudo->esq, valor);    
+    return -1;
 }
 
-int estaVazia_ArvBin(ArvBin *raiz){
-    if(raiz == NULL) return 0;
-    return (*raiz == NULL);
-}
-
-int consulta_ArvBin(ArvBin *raiz, int valor){
-    if(raiz == NULL) return 0;
-    if(valor < (*raiz)->info)
-        return consulta_ArvBin(&(*raiz)->esq, valor);
-    if(valor > (*raiz)->info)
-        return consulta_ArvBin(&(*raiz)->dir, valor);
-    return 1;
-}
-
-void preOrdem_ArvBin(ArvBin *raiz){
-    if(raiz == NULL) return;
-    if(estaVazia_ArvBin(raiz)) return;
-    printf("%d ", (*raiz)->info);
-    preOrdem_ArvBin(&(*raiz)->esq);
-    preOrdem_ArvBin(&(*raiz)->dir);
-}
-
-void emOrdem_ArvBin(ArvBin *raiz){
-    if(raiz == NULL) return;
-    if(estaVazia_ArvBin(raiz)) return;
-    emOrdem_ArvBin(&(*raiz)->esq);
-    printf("%d ", (*raiz)->info);
-    emOrdem_ArvBin(&(*raiz)->dir);
-}
-
-void posOrdem_ArvBin(ArvBin *raiz){
-    if(raiz == NULL) return;
-    if(estaVazia_ArvBin(raiz)) return;
-    posOrdem_ArvBin(&(*raiz)->esq);
-    posOrdem_ArvBin(&(*raiz)->dir);
-    printf("%d ", (*raiz)->info);
-}
-
-int totalNaoFolha_ArvBin(ArvBin *raiz){
+int nFilhos_No(NO *raiz){
+    if (raiz == NULL) return -1;
     int cont = 0;
-    if(&(*raiz)->esq != NULL) cont++;
-    if(&(*raiz)->dir != NULL) cont++;
+    if(raiz->esq == NULL) cont++;
+    if(raiz->dir == NULL) cont++;
     return cont;
 }
 
-int totalFolha_ArvBin(ArvBin *raiz){
-    int cont = 0;
-    if(&(*raiz)->esq == NULL) cont++;
-    if(&(*raiz)->dir == NULL) cont++;
-    return cont;
+int consulta_No(NO *raiz, int valor){
+    return 0;
 }
 
-void libera_ArvBin(ArvBin *raiz){
+void preOrdem_No(NO *raiz){
     if(raiz == NULL) return;
-    libera_ArvBin(&(*raiz)->esq);
-    libera_ArvBin(&(*raiz)->dir);
-    free(raiz);
+    printf("%d ", raiz->info);
+    preOrdem_No(raiz->esq);
+    preOrdem_No(raiz->dir);
+}
+
+void emOrdem_No(NO *raiz){
+    if(raiz == NULL) return;
+    emOrdem_No(raiz->esq);
+    printf("%d ", raiz->info);
+    emOrdem_No(raiz->dir);
     return;
+}
+
+void posOrdem_No(NO *raiz){
+    if(raiz == NULL) return;
+    posOrdem_No(raiz->esq);
+    posOrdem_No(raiz->dir);
+    printf("%d ", raiz->info);
+}
+
+int totalNaoFolha_No(NO *raiz){
+    int cont = 0;
+    if(raiz->esq != NULL) cont++;
+    if(raiz->dir != NULL) cont++;
+    return cont;
+}
+
+int totalFolha_No(NO *raiz){
+    int cont = 0;
+    if(raiz->esq == NULL) cont++;
+    if(raiz->dir == NULL) cont++;
+    return cont;
+}
+
+void libera_No(NO *raiz){
+    if(raiz == NULL) return;
+    libera_No(raiz->esq);
+    libera_No(raiz->dir);
+    free(raiz);
 }

@@ -13,7 +13,7 @@ DEPS= ArvoreBinaria.h
 OBJ= ArvoreBinaria.o progArvore.o
 EXEC= programa
 
-%.o: src/%.c $(DEPS)
+%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 main: $(OBJ)
@@ -35,7 +35,6 @@ val:
 valzao:
 	make main
 	valgrind --leak-check=full --show-leak-kinds=all ./${EXEC}
-
 
 clean:
 	rm -f *.o
