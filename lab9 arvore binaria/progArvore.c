@@ -9,12 +9,12 @@ int main(){
         printf("Deubom? %d\n", deubom);
     }
     //Alterar o valor de p para testar valores que existem e não
-/*    int p = 36;
-    if (consulta_ArvBin(raiz, p))
+    int p = 30;
+    if (consulta_No(raiz, p))
 	    printf("Achou o elemento %d\n",p);
     else
     	printf("Elemento %d nao encontrado\n", p);
-*/	
+	
 
     emOrdem_No(raiz);
     printf("\n");
