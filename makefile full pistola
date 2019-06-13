@@ -8,16 +8,20 @@
 #-lm obrigatorio caso utilize a biblioteca math.h
 
 CC=gcc
-CFLAGS=-I. -Wall -g
-DEPS= .h
-OBJ= .o 
-EXEC= programa
+CFLAGS=-Wall -g
+DEPS=lista.h palavra.hi
+DEPSDIR= headers
+_DEPS=$(patsubst %,${DEPSDIR}/%,${DEPS})
+OBJ=lista.o palavra.o main.o
+OBJDIR=src
+_OBJ=$(patsubst %,${OBJDIR}/%,${OBJ})
+EXEC=LEIA_O_MAKEFILE
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+${OBJDIR}/%.o: %.c ${_DEPS}
+	${CC} -c -o $@ $< ${CFLAGS}
 
-main: $(OBJ)
-	$(CC) -o ${EXEC} $^ $(CFLAGS)
+all: ${_OBJ}
+	${CC} -o ${EXEC} $^ ${CFLAGS}
 	rm -f *.o
 
 run: 
@@ -36,10 +40,12 @@ valzao:
 	make main
 	valgrind --leak-check=full --show-leak-kinds=all ./${EXEC}
 
-clean:
+clear:
 	rm -f *.o
+	rm -f ${OBJDIR}/*.o
 	rm -f ${EXEC}
-	rm -f main
+	#rm -f main
+	clear
 
 push:
-	./autopush ${msg}
+	gitPusher ${msg}
