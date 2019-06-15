@@ -1,0 +1,30 @@
+\changetocdepth {4}
+\select@language {brazil}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {1}\MakeTextUppercase {Introdu\IeC {\c c}\IeC {\~a}o}}{12}{chapter.1}
+\contentsline {section}{\numberline {1.1}Se\IeC {\c c}\IeC {\~o}es e subse\IeC {\c c}\IeC {\~o}es}{12}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Refer\IeC {\^e}ncias a se\IeC {\c c}\IeC {\~o}es}{12}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Sobre refer\IeC {\^e}ncias cruzadas}{12}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}Cita\IeC {\c c}\IeC {\~o}es bibliogr\IeC {\'a}ficas}{13}{section.1.2}
+\contentsline {section}{\numberline {1.3}Listagens de c\IeC {\'o}digo}{13}{section.1.3}
+\contentsline {section}{\numberline {1.4}Figuras}{14}{section.1.4}
+\contentsline {section}{\numberline {1.5}Tabelas}{15}{section.1.5}
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {2}\MakeTextUppercase {Referencial Te\IeC {\'o}rico}}{20}{chapter.2}
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase {Especifica\IeC {\c c}\IeC {\~a}o de Requisitos}}{21}{chapter.3}
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {4}\MakeTextUppercase {Projeto Arquitetural e Implementa\IeC {\c c}\IeC {\~a}o}}{22}{chapter.4}
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {5}\MakeTextUppercase {Considera\IeC {\c c}\IeC {\~o}es Finais}}{23}{chapter.5}
+\vspace {\cftbeforechapterskip }
+\vspace {\cftbeforechapterskip }
+\renewcommand *{\cftappendixname }{AP\^ENDICE \space }
+\setlength {\cftpartindent }{\cftlastnumwidth } \setlength {\cftpartnumwidth }{2em}
+\cftinsert {A}
+\contentsline {part}{\uppercase {Ap\^endices}}{24}{section*.22}
