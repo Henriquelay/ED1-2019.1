@@ -14,17 +14,17 @@
 typedef char TipoChave[N];
 typedef unsigned TipoPesos[N][TAMALFABETO];
 typedef struct TipoItem {
-  /* outros componentes */
-  TipoChave Chave;
+    int ocorrencias;
+    TipoChave Chave;
 } TipoItem;
 typedef unsigned int TipoIndice;
 typedef struct TipoCelula* TipoApontador;
 typedef struct TipoCelula {
-  TipoItem Item;
-  TipoApontador Prox;
+    TipoItem Item;
+    TipoApontador Prox;
 } TipoCelula;
 typedef struct TipoLista {
-  TipoCelula *Primeiro, *Ultimo;
+    TipoCelula *Primeiro, *Ultimo;
 } TipoLista;
 typedef TipoLista TipoDicionario[M];
 
