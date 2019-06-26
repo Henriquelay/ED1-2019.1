@@ -27,9 +27,8 @@ int insere_No(NO **raiz, int valor){
         return insere_No(&conteudo->dir, valor);
     if(valor < conteudo->info)
         return insere_No(&conteudo->esq, valor);    
-    if(conteudo->info == valor) return 0;
    
-    return -1;
+    return 0;
 }
 
 int nFilhos_No(NO *raiz){
